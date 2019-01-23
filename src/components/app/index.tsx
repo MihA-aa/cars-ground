@@ -14,10 +14,10 @@ export const App: React.FC = () => (
 		<Layout>
 			<Switch>
 				<Route exact path='/' component={Listing} />
-				<Route path='/newAd' component={withAthorization(AdForm)} />
+				<Route path='/Ad/Create' component={withAthorization(AdForm)} />
+				<Route path='/Ad/Edit/:id' component={AdForm} />
+				<Route path='/Ad/View/:id' component={AdForm} />
 				<Route component={NotFound} />
-				{/* <Route path='/watch/:id' component={WatchAd} />
-						<Route path='/edit/:id' component={EditAd} /> */}
 			</Switch>
 		</Layout>
 	</Switch>

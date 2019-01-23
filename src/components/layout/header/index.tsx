@@ -11,7 +11,9 @@ export const Header: React.FC = () => (
 			<Typography variant='h6' color='inherit' className='label'>
 				<Styled.Link to=''>Cars Ground</Styled.Link>
 			</Typography>
-			<Button color='inherit'>Login</Button>
+			<Button color='inherit'>
+				<Styled.Link to='login'>Login</Styled.Link>
+			</Button>
 		</Toolbar>
 	</AppBar>
 );
