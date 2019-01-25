@@ -15,8 +15,8 @@ export const App: React.FC = () => (
 			<Switch>
 				<Route exact path='/' component={Listing} />
 				<Route path='/Ad/Create' component={withAthorization(AdForm)} />
-				<Route path='/Ad/Edit/:id' component={AdForm} />
-				<Route path='/Ad/View/:id' component={AdForm} />
+				{/* <Route path='/Ad/Edit/:id' component={AdForm} />
+				<Route path='/Ad/View/:id' component={AdForm} /> */}
 				<Route component={NotFound} />
 			</Switch>
 		</Layout>
