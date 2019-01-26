@@ -1,4 +1,3 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core';
 
-export default () => <CircularProgress />;
+export default () => <div>Loading</div>;

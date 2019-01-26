@@ -1,49 +1,42 @@
 import React from 'react';
 import { Form } from 'antd';
-import { Field, reduxForm, SubmitHandler } from 'redux-form';
-import { FormComponentProps } from 'antd/lib/form/Form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 
-import { FieldRender } from './field-render';
 import { requiredNamed } from '../../helpers/validation-rules';
-
+import { Input } from '../../helpers/fields';
 import { Styled } from './styled';
-
-interface LoginFormReduxProps {
-	handleSubmit: SubmitHandler<{}, {}, string>;
-}
+import { asyncValidate } from './actions';
 
 const labels = {
 	userName: 'Username',
 	password: 'Password',
 };
 
-class LoginForm extends React.Component<FormComponentProps & LoginFormReduxProps> {
+const icon = (iconType: 'user' | 'lock') => <Styled.Icon type={iconType} />;
+
+class LoginForm extends React.Component<InjectedFormProps> {
 	handleSubmit = () => {
-		console.log('asds');
+		alert('submit');
 	};
 
 	render() {
-		const {
-			handleSubmit,
-			form: { getFieldDecorator: fieldDecorator },
-		} = this.props;
+		const { handleSubmit } = this.props;
 		return (
 			<Styled.Form onSubmit={handleSubmit(this.handleSubmit)}>
 				<Field
-					iconType='user'
-					isRequired={true}
+					component={Input}
+					prefix={icon('user')}
 					name={labels.userName}
-					component={FieldRender}
+					placeholder={labels.userName}
 					validate={requiredNamed}
-					fieldDecorator={fieldDecorator}
 				/>
 				<Field
-					iconType='lock'
-					isRequired={true}
+					component={Input}
+					type='password'
+					prefix={icon('lock')}
 					name={labels.password}
-					component={FieldRender}
+					placeholder={labels.password}
 					validate={requiredNamed}
-					fieldDecorator={fieldDecorator}
 				/>
 				<Form.Item>
 					<Styled.LoginFormButton>Log in</Styled.LoginFormButton>
@@ -53,8 +46,8 @@ class LoginForm extends React.Component<FormComponentProps & LoginFormReduxProps
 	}
 }
 
-const LoginFormComponent = Form.create()(LoginForm);
-
-export const LoginPage = reduxForm({
+const ReduxLoginForm = reduxForm({
 	form: 'login',
-})((props) => <LoginFormComponent handleSubmit={props.handleSubmit} />);
+})(LoginForm);
+
+export const LoginPage = () => <ReduxLoginForm />;

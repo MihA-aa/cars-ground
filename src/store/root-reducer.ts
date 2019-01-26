@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import { AthorizationProps } from '../hocs/authorization';
+import { AthorizationProps } from '../helpers/hocs/authorization';
 
 const initialState: AthorizationProps = {
 	isAuthorized: true,

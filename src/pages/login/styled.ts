@@ -15,7 +15,7 @@ const Icon = styled(IconComponent)`
 	color: rgba(0, 0, 0, 0.25);
 `;
 
-const LoginFormButton = styled(Button).attrs({ type: 'primary', htmlType: 'submit' })`
+const LoginFormButton = styled<any>(Button).attrs({ type: 'primary', htmlType: 'submit' })`
 	width: 100%;
 `;
 

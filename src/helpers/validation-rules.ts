@@ -1,5 +1,6 @@
-export const requiredNamed = (value: any, allValues?: any, props?: any, name?: any) =>
-	value && value.trim() ? undefined : `${name} is required.`;
+export const requiredNamed = (value: any, allValues?: any, props?: any, name?: any) => {
+	return value && value.trim() ? undefined : `${name} is required.`;
+};
 
 export const maxLengthNamed = (name: string, max: number) => (value: string) =>
 	value && value.length > max ? `${name} cannot be longer than ${max} characters.` : undefined;
