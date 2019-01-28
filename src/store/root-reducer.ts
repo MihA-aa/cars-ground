@@ -1,14 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import { AthorizationProps } from '../helpers/hocs/authorization';
+import { UserAuthState, userAuthReducer } from './../pages/login/reducer';
 
-const initialState: AthorizationProps = {
-	isAuthorized: true,
-};
+export interface StoreState {
+	userAuth: UserAuthState;
+}
 
-export const authorizeReducer = (state = initialState, action: any) => {
-	return state;
-};
-
-export default combineReducers({ authorize: authorizeReducer, form: formReducer });
+export default combineReducers({ userAuth: userAuthReducer, form: formReducer });

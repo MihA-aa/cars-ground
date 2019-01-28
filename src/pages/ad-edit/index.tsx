@@ -45,7 +45,12 @@ const fakeData = {
 	bodyTypes: [BodyType.Convertible, BodyType.Crossover],
 };
 
-const AdFormCommonField = (props: any) => (
+interface AdFormCommonFieldProps {
+	label: string;
+	name: string;
+}
+
+const AdFormCommonField: React.SFC<AdFormCommonFieldProps> = (props) => (
 	<Field
 		component={Select}
 		label={props.label}
@@ -53,8 +58,9 @@ const AdFormCommonField = (props: any) => (
 		required={true}
 		name={props.name}
 		{...formItemLayout}
-		{...props}
-	/>
+	>
+		{props.children}
+	</Field>
 );
 
 class AdForm extends React.Component<InjectedFormProps> {
@@ -128,14 +134,14 @@ class AdForm extends React.Component<InjectedFormProps> {
 					name={'Price'}
 					validate={requiredNamed}
 					required={true}
-					palceholder={labels.price}
+					placeholder={labels.price}
 					{...formItemLayout}
 				/>
 				<Field
 					component={TextArea}
 					label={labels.notes}
 					name={'Notes'}
-					palceholder={labels.notes}
+					placeholder={labels.notes}
 					{...formItemLayout}
 				/>
 				<Form.Item {...tailFormItemLayout}>

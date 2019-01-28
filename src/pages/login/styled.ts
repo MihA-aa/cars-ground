@@ -8,6 +8,10 @@ const Form = styled(FormComponent)`
 		border-radius: 2px;
 		border: 1px solid rgb(235, 237, 240);
 		padding: 20px;
+
+		.ant-form-item:nth-child(3) {
+			margin-bottom: 0;
+		}
 	}
 `;
 
