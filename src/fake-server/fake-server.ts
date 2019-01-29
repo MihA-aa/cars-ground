@@ -1,11 +1,12 @@
+import { SelectOption } from './../data-interfaces/interfaces/select-option';
 import { users } from './fake-data';
 import { LoginFormValues } from '../pages/login/actions/actions';
 import { LoginResponse } from './interfaces';
 import { sleep, mapUserToLoginModel } from './helpers';
+import { mapEnumToSelectOption } from '../helpers/map-enum-to-select-option';
+import { CarBrand } from '../data-interfaces/enums';
 
-export const loginValidate: (values: LoginFormValues) => Promise<LoginResponse> = async (
-	values: LoginFormValues,
-) => {
+export const loginValidate = async (values: LoginFormValues): Promise<LoginResponse> => {
 	await sleep(1000);
 	const user = users.find(
 		(user_1) => user_1.nickname === values.userName && user_1.password === values.password,
@@ -14,4 +15,9 @@ export const loginValidate: (values: LoginFormValues) => Promise<LoginResponse> 
 		? mapUserToLoginModel(user)
 		: { errors: { error: 'Login failed; Invalid User name or Password' } };
 	return result as LoginResponse;
+};
+
+export const getBrands = async (): Promise<SelectOption[]> => {
+	await sleep(2000);
+	return mapEnumToSelectOption(CarBrand);
 };
