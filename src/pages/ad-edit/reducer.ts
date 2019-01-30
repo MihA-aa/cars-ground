@@ -4,21 +4,38 @@ import { AdActionTypes } from './actions/action-types';
 
 export interface AdState {
 	brandOptions: SelectOption[];
-	brandLoading: boolean;
+	modelOptions: SelectOption[];
+	brandsLoading: boolean;
+	modelsLoading: boolean;
+	modelDisabled: boolean;
 }
 
 const initialState: AdState = {
 	brandOptions: [],
-	brandLoading: false,
+	modelOptions: [],
+	brandsLoading: false,
+	modelsLoading: false,
+	modelDisabled: false,
 };
 
-export const adReducer = (state: AdState = initialState, action: AdAction) => {
+export const adReducer = (state: AdState = initialState, action: AdAction): AdState => {
 	switch (action.type) {
 		case AdActionTypes.GET_BRANDS_REQUEST:
-			return { ...state, brandLoading: true };
+			return { ...state, brandsLoading: true, modelDisabled: true };
 
 		case AdActionTypes.BRANDS_FETCHED:
-			return { ...state, brandLoading: false, brandOptions: action.payload.options };
+			return { ...state, brandsLoading: false, brandOptions: action.payload.options };
+
+		case AdActionTypes.GET_MODELS_REQUEST:
+			return { ...state, modelsLoading: true, modelDisabled: true };
+
+		case AdActionTypes.MODELS_FETCHED:
+			return {
+				...state,
+				modelsLoading: false,
+				modelOptions: action.payload.options,
+				modelDisabled: false,
+			};
 
 		default:
 			return state;

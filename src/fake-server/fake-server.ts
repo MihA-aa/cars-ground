@@ -3,8 +3,8 @@ import { users } from './fake-data';
 import { LoginFormValues } from '../pages/login/actions/actions';
 import { LoginResponse } from './interfaces';
 import { sleep, mapUserToLoginModel } from './helpers';
-import { mapEnumToSelectOption } from '../helpers/map-enum-to-select-option';
-import { CarBrand } from '../data-interfaces/enums';
+import { mapEnumToSelectOptions } from '../helpers/mappers';
+import { CarBrand, CarModel } from '../data-interfaces/enums';
 
 export const loginValidate = async (values: LoginFormValues): Promise<LoginResponse> => {
 	await sleep(1000);
@@ -18,6 +18,11 @@ export const loginValidate = async (values: LoginFormValues): Promise<LoginRespo
 };
 
 export const getBrands = async (): Promise<SelectOption[]> => {
-	await sleep(2000);
-	return mapEnumToSelectOption(CarBrand);
+	await sleep(1000);
+	return mapEnumToSelectOptions(CarBrand);
+};
+
+export const getModels = async (model: CarModel): Promise<SelectOption[]> => {
+	await sleep(1000);
+	return mapEnumToSelectOptions(CarModel);
 };

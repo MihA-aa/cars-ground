@@ -2,12 +2,14 @@ import React from 'react';
 import { Form, Select as ASelect, Button, Radio } from 'antd';
 import { Field, InjectedFormProps } from 'redux-form';
 
-import { requiredNamed, required } from '../../helpers/validation-rules';
+import { required } from '../../helpers/validation-rules';
 import { Input, Select, RadioGroup, TextArea } from '../../helpers/fields';
 import { Styled } from './styled';
 import { CarBrand, CarModel, BodyType, Condition } from '../../data-interfaces/enums';
 import { SelectOption } from '../../data-interfaces/interfaces/select-option';
 import { AdFormStateToProps, AdFormDispatchToProps } from '.';
+import { mapArrayToSelectOptions, mapEnumToSelectOptions } from '../../helpers/mappers';
+import { years } from '../../fake-server/fake-data';
 
 const { Option } = ASelect;
 const labels = {
@@ -47,44 +49,39 @@ const fakeData = {
 	bodyTypes: [BodyType.Convertible, BodyType.Crossover],
 };
 
-const selectOptions: SelectOption[] = [
-	{ name: 'Sedan', value: BodyType.Sedan },
-	{ name: 'Hatchback', value: BodyType.Hatchback },
-	{ name: 'Crossover', value: BodyType.Crossover },
-	{ name: 'Hatchback', value: BodyType.Hatchback },
-	{ name: 'Hatchback', value: BodyType.Hatchback },
-	{ name: 'Hatchback', value: BodyType.Hatchback },
-];
+const yearOptions = mapArrayToSelectOptions(years);
+const bodyTypeOptions = mapEnumToSelectOptions(BodyType);
+const conditionOptions = mapEnumToSelectOptions(Condition);
 
 interface AdFormCommonFieldProps {
 	label: string;
 	name: string;
-	isLoading?: boolean;
+	loading?: boolean;
+	disabled?: boolean;
+	isRadioGroup?: boolean;
 	options: SelectOption[];
+	onChangeCallback?: (event: any) => void;
 }
 
-const AdFormSelectField: React.FC<AdFormCommonFieldProps> = ({
-	label,
-	name,
-	options,
-	isLoading,
-}) => (
-	<Field
-		component={Select}
-		label={label}
-		validate={required}
-		required={true}
-		name={name}
-		loading={isLoading}
-		{...formItemLayout}
-	>
-		{options.map((option) => (
-			<Option key={option.name} value={option.value}>
-				{option.name}
-			</Option>
-		))}
-	</Field>
-);
+const AdFormSelectField: React.FC<AdFormCommonFieldProps> = (props) => {
+	const OptionComponent = props.isRadioGroup ? Radio : Option;
+	return (
+		<Field
+			component={Select}
+			validate={required}
+			onChangeCallback={props.onChangeCallback}
+			{...props as AdFormCommonFieldProps}
+			{...formItemLayout}
+			required={true}
+		>
+			{props.options.map((option) => (
+				<OptionComponent key={option.name} value={option.value}>
+					{option.name}
+				</OptionComponent>
+			))}
+		</Field>
+	);
+};
 
 export class AdForm extends React.Component<
 	AdFormStateToProps &
@@ -102,42 +99,41 @@ export class AdForm extends React.Component<
 	};
 
 	render() {
-		const { handleSubmit, pristine, submitting, brandOptions, brandLoading } = this.props;
+		const {
+			handleSubmit,
+			pristine,
+			submitting,
+			brandOptions,
+			brandsLoading,
+			modelOptions,
+			modelsLoading,
+			modelDisabled,
+			loadModels,
+		} = this.props;
 		return (
 			<Styled.Form onSubmit={handleSubmit(this.handleSubmit)}>
 				<AdFormSelectField
 					label='Car Brand'
 					name='carBrand'
 					options={brandOptions}
-					isLoading={brandLoading}
+					loading={brandsLoading}
+					disabled={brandsLoading}
+					onChangeCallback={loadModels}
 				/>
-				{/* <AdFormSelectField label='Model' name='model'>
-					{fakeData.models.map((key) => (
-						<Option key={CarModel[key]} value={key}>
-							{CarModel[key]}
-						</Option>
-					))}
-				</AdFormSelectField>
-				<AdFormSelectField label='Year of issue' name='yearOfIssue'>
-					{fakeData.years.map((year) => (
-						<Option key={year.toString()} value={year}>
-							{year}
-						</Option>
-					))}
-				</AdFormSelectField> */}
-				{/* <AdFormSelectField label='Body type' name='bodyType'>
-					{fakeData.bodyTypes.map((key) => (
-						<Option key={BodyType[key]} value={key}>
-							{BodyType[key]}
-						</Option>
-					))}
-				</AdFormSelectField> */}
+				<AdFormSelectField
+					label='Model'
+					name='model'
+					options={modelOptions}
+					loading={modelsLoading}
+					disabled={modelDisabled}
+				/>
+				<AdFormSelectField label='Year of issue' name='yearOfIssue' options={yearOptions} />
+				<AdFormSelectField label='Body type' name='bodyType' options={bodyTypeOptions} />
 				<Field
 					component={Input}
 					label={labels.modification}
-					// USE NameOf
 					name={'Modification'}
-					palceholder={labels.modification}
+					placeholder={labels.modification}
 					{...formItemLayout}
 				/>
 				<Field
