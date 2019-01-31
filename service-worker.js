@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/cars-ground/precache-manifest.062bc057f8e8235e2c3f90c9625059f5.js"
+  "/cars-ground/precache-manifest.a1a1071e4c26b003593b2565c570eebb.js"
 );
 
 workbox.clientsClaim();
