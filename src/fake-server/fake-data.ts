@@ -1,7 +1,7 @@
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { User } from '../data-interfaces/interfaces/user';
 
-export const carToModel = new Map([
+export const carToModel = new Map<CarBrand, CarModel[]>([
 	[CarBrand.BMW, [CarModel.M5, CarModel.M6, CarModel.X5, CarModel.X6]],
 	[CarBrand.Ford, [CarModel.Focus, CarModel.Mustang, CarModel.Galaxy]],
 ]);

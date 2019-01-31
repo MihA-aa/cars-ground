@@ -6,7 +6,6 @@ import { SelectOption } from '../../data-interfaces/interfaces/select-option';
 import { StoreState } from '../../store/root-reducer';
 import { loadBrands, loadModels } from './actions/actions';
 import { AdDispatch } from './actions/action-creators';
-import { CarModel } from '../../data-interfaces/enums';
 
 export interface AdFormStateToProps {
 	brandOptions: SelectOption[];

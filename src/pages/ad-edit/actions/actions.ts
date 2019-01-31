@@ -1,6 +1,5 @@
-import { CarModel } from './../../../data-interfaces/enums/car-model';
 import { Dispatch } from 'redux';
-
+import { CarBrand } from './../../../data-interfaces/enums/car-brand';
 import { getBrands, getModels } from '../../../fake-server/fake-server';
 import {
 	getBrandsRequest,
@@ -15,8 +14,8 @@ export const loadBrands = () => async (dispatch: Dispatch) => {
 	dispatch(brandsFetched(result));
 };
 
-export const loadModels = (model: CarModel) => async (dispatch: Dispatch) => {
+export const loadModels = (brand: CarBrand) => async (dispatch: Dispatch) => {
 	dispatch(getModelsRequest());
-	const result = await getModels(model);
+	const result = await getModels(brand);
 	dispatch(modelsFetched(result));
 };

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import { StoreState } from '../../store/root-reducer';
+
 export interface AthorizationProps {
 	isAuthorized: boolean;
 }
@@ -11,6 +13,8 @@ export const withAthorization = <P extends object>(Component: React.ComponentTyp
 		const { isAuthorized, ...componentProps } = props as AthorizationProps;
 		return isAuthorized ? <Component {...componentProps as P} /> : <Redirect to='/login' />;
 	};
-	const mapStateToProps = (state: any): AthorizationProps => ({ isAuthorized: true });
+	const mapStateToProps = ({ userAuth }: StoreState): AthorizationProps => ({
+		isAuthorized: !!userAuth.userId,
+	});
 	return connect(mapStateToProps)(authorize);
 };

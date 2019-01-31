@@ -1,5 +1,5 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
-import { users } from './fake-data';
+import { users, carToModel } from './fake-data';
 import { LoginFormValues } from '../pages/login/actions/actions';
 import { LoginResponse } from './interfaces';
 import { sleep, mapUserToLoginModel } from './helpers';
@@ -22,7 +22,8 @@ export const getBrands = async (): Promise<SelectOption[]> => {
 	return mapEnumToSelectOptions(CarBrand);
 };
 
-export const getModels = async (model: CarModel): Promise<SelectOption[]> => {
+export const getModels = async (brand: CarBrand): Promise<SelectOption[]> => {
 	await sleep(1000);
-	return mapEnumToSelectOptions(CarModel);
+	const models = carToModel.get(Number(brand)) || [];
+	return models && models.map((m) => ({ name: CarModel[m], value: m }));
 };
