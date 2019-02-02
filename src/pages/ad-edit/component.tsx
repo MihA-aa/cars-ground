@@ -1,25 +1,25 @@
 import React from 'react';
 import { Form, Button } from 'antd';
-import { Field, InjectedFormProps } from 'redux-form';
+import { Field } from 'redux-form';
 
 import { required } from '../../helpers/validation-rules';
 import { Input, TextArea } from '../../helpers/fields';
 import { Styled } from './styled';
 import { AdFormSelectField, AdFormRadioField, currenciesPostfix } from './fields';
-import { AdFormStateToProps, AdFormDispatchToProps } from '.';
+import { AdFormProps } from './interfaces';
 import { options, formItemLayout, tailFormItemLayout, fields } from './form-settings';
+import { routePaths } from '../../helpers/route-paths';
 
-export class AdForm extends React.Component<
-	AdFormStateToProps &
-		AdFormDispatchToProps &
-		InjectedFormProps<{}, AdFormStateToProps & AdFormDispatchToProps>
-> {
+export class AdForm extends React.Component<AdFormProps> {
 	componentDidMount() {
-		this.props.loadBrands();
+		if (this.props.match.path === routePaths.adEdit) {
+			const adId = Number(this.props.match.params.id);
+			const notFoundRedirect = () => this.props.history.push(routePaths.notFound);
+			isNaN(adId) ? notFoundRedirect() : this.props.loadCar(adId, notFoundRedirect);
+		} else {
+			this.props.loadBrands();
+		}
 	}
-	handleSubmit = () => {
-		alert('sumbit');
-	};
 	cancel = () => {
 		alert('cancel');
 	};
@@ -34,17 +34,19 @@ export class AdForm extends React.Component<
 			modelOptions,
 			modelsLoading,
 			modelDisabled,
-			loadModels,
+			changeBrand,
 		} = this.props;
 		return (
-			<Styled.Form onSubmit={handleSubmit(this.handleSubmit)}>
+			<Styled.Form onSubmit={handleSubmit}>
+				<Field name='carId' component='input' type='hidden' />
+				<Field name='userId' component='input' type='hidden' />
 				<AdFormSelectField
 					label={fields.carBrandLabel}
 					name={fields.carBrand}
 					options={brandOptions}
 					loading={brandsLoading}
 					disabled={brandsLoading}
-					onChangeCallback={loadModels}
+					onChangeCallback={changeBrand}
 				/>
 				<AdFormSelectField
 					label={fields.modelLabel}

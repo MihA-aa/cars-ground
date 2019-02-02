@@ -2,23 +2,13 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { AdForm } from './component';
-import { SelectOption } from '../../data-interfaces/interfaces/select-option';
 import { StoreState } from '../../store/root-reducer';
-import { loadBrands, loadModels } from './actions/actions';
-import { AdDispatch } from './actions/action-creators';
-
-export interface AdFormStateToProps {
-	brandOptions: SelectOption[];
-	modelOptions: SelectOption[];
-	brandsLoading: boolean;
-	modelsLoading: boolean;
-	modelDisabled: boolean;
-}
-
-export interface AdFormDispatchToProps {
-	loadBrands: () => (dispatch: AdDispatch) => void;
-	loadModels: (model: any) => (dispatch: AdDispatch) => void;
-}
+import { loadBrands, loadCar, changeBrand, submit } from './actions/actions';
+import { AdFormStateToProps, AdFormValues, PropsFromConnect } from './interfaces';
+import { withRouter } from 'react-router';
+import { withLoading } from '../../helpers/hocs/with-loading';
+import { formName } from './form-settings';
+import { routePaths } from '../../helpers/route-paths';
 
 const mapStateToProps = ({ ad }: StoreState): AdFormStateToProps => ({
 	brandOptions: ad.brandOptions,
@@ -26,13 +16,18 @@ const mapStateToProps = ({ ad }: StoreState): AdFormStateToProps => ({
 	brandsLoading: ad.brandsLoading,
 	modelsLoading: ad.modelsLoading,
 	modelDisabled: ad.modelDisabled,
+	initialValues: ad.initialValues!,
+	isLoading: ad.isLoading,
 });
 
-const ReduxAdForm = reduxForm<{}, AdFormStateToProps & AdFormDispatchToProps>({
-	form: 'ad',
-})(AdForm);
+const ReduxAdForm = reduxForm<AdFormValues, PropsFromConnect>({
+	form: formName,
+	onSubmit: async (values, dispatch, props) => {
+		return dispatch(submit(values, () => props.history.push(routePaths.home)));
+	},
+})(withLoading(AdForm));
 
 export const AdEditPage = connect<AdFormStateToProps, {}, {}, StoreState>(
 	mapStateToProps,
-	{ loadBrands, loadModels },
-)(ReduxAdForm);
+	{ loadBrands, changeBrand, loadCar },
+)(withRouter(ReduxAdForm));

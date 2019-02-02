@@ -1,21 +1,15 @@
-import { SelectOption } from './../../data-interfaces/interfaces/select-option';
 import { AdAction } from './actions/action-creators';
 import { AdActionTypes } from './actions/action-types';
-
-export interface AdState {
-	brandOptions: SelectOption[];
-	modelOptions: SelectOption[];
-	brandsLoading: boolean;
-	modelsLoading: boolean;
-	modelDisabled: boolean;
-}
+import { AdState } from './interfaces';
 
 const initialState: AdState = {
+	isLoading: false,
 	brandOptions: [],
 	modelOptions: [],
 	brandsLoading: false,
 	modelsLoading: false,
 	modelDisabled: false,
+	initialValues: null,
 };
 
 export const adReducer = (state: AdState = initialState, action: AdAction): AdState => {
@@ -36,6 +30,15 @@ export const adReducer = (state: AdState = initialState, action: AdAction): AdSt
 				modelOptions: action.payload.options,
 				modelDisabled: false,
 			};
+
+		case AdActionTypes.PAGE_LOADING:
+			return { ...state, isLoading: true };
+
+		case AdActionTypes.CAR_LOADED:
+			return { ...state, initialValues: action.payload.values };
+
+		case AdActionTypes.PAGE_LOADED:
+			return { ...state, isLoading: false };
 
 		default:
 			return state;

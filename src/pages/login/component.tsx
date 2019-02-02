@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
-import { Field, InjectedFormProps } from 'redux-form';
-import { Link, Redirect } from 'react-router-dom';
+import { Field } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 import { requiredNamed } from '../../helpers/validation-rules';
 import { Input, Checkbox } from '../../helpers/fields';
@@ -23,14 +23,9 @@ const passwordValidate = [requiredNamed(fields.passwordLabel)];
 
 const icon = (iconType: 'user' | 'lock') => <Styled.Icon type={iconType} />;
 
-export const LoginForm: React.FC<LoginFormProps & InjectedFormProps<{}, LoginFormProps>> = (
-	props,
-) => {
-	const { login, handleSubmit, submitting, submitSucceeded } = props;
-	return submitSucceeded ? (
-		<Redirect to='/' push />
-	) : (
-		<Styled.Form onSubmit={handleSubmit(login)}>
+export const LoginForm: React.FC<LoginFormProps> = ({ handleSubmit, submitting }) => {
+	return (
+		<Styled.Form onSubmit={handleSubmit}>
 			<Field
 				component={Input}
 				prefix={icon('user')}

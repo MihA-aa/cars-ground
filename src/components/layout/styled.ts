@@ -19,7 +19,7 @@ const Header = styled(AntdHeader)`
 
 const Body = styled(AntdContent)`
 	&& {
-		padding: 0 50px;
+		padding: 0 200px;
 	}
 `;
 

@@ -1,19 +1,22 @@
-import { Dispatch } from 'redux';
-import { reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import { reduxForm, InjectedFormProps } from 'redux-form';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { LoginForm } from './component';
 import { login } from './actions/actions';
+import { routePaths } from '../../helpers/route-paths';
 
-export interface LoginFormProps {
-	login: (props: any) => (dispatch: Dispatch) => void;
+export type LoginFormProps = RouteComponentProps &
+	InjectedFormProps<LoginFormValues, RouteComponentProps>;
+
+export interface LoginFormValues {
+	userName: string;
+	password: string;
 }
 
-const ReduxLoginForm = reduxForm<{}, LoginFormProps>({
+const ReduxLoginForm = reduxForm<LoginFormValues, RouteComponentProps>({
 	form: 'login',
+	onSubmit: async (values, dispatch, props) =>
+		dispatch(login(values, () => props.history.push(routePaths.home))),
 })(LoginForm);
 
-export const LoginPage = connect<{}>(
-	null,
-	{ login },
-)(ReduxLoginForm);
+export const LoginPage = withRouter(ReduxLoginForm);

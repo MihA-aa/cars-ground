@@ -1,12 +1,11 @@
 import React from 'react';
 
-import Loader from '../../components/loader';
+import { Loader, SpinnerProps } from '../../components/loader';
 
-export interface WithLoadingProps {
-	isLoaded: boolean;
-}
-
-export const withLoading = <P extends WithLoadingProps>(
+export const withLoading = <P extends SpinnerProps>(
 	Component: React.ComponentType<P>,
-): React.FC<P> => ({ isLoaded, ...props }: WithLoadingProps) =>
-	isLoaded ? <Component {...props as P} /> : <Loader />;
+): React.FC<P> => ({ isLoading, ...props }: SpinnerProps) => (
+	<Loader isLoading={isLoading}>
+		<Component {...props as P} />
+	</Loader>
+);

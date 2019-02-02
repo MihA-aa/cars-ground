@@ -1,3 +1,12 @@
 import React from 'react';
+import { Spin } from 'antd';
 
-export default () => <div>Loading</div>;
+export interface SpinnerProps {
+	isLoading: boolean;
+}
+
+export const Loader: React.FC<SpinnerProps> = ({ isLoading, children }) => (
+	<Spin spinning={isLoading} tip='Loading...'>
+		{children}
+	</Spin>
+);

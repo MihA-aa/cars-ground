@@ -1,10 +1,38 @@
-import { CarBrand, CarModel } from '../data-interfaces/enums';
+import { CarBrand, CarModel, BodyType, Condition } from '../data-interfaces/enums';
 import { User } from '../data-interfaces/interfaces/user';
+import { Car } from '../data-interfaces/interfaces/car';
 
 export const carToModel = new Map<CarBrand, CarModel[]>([
 	[CarBrand.BMW, [CarModel.M5, CarModel.M6, CarModel.X5, CarModel.X6]],
 	[CarBrand.Ford, [CarModel.Focus, CarModel.Mustang, CarModel.Galaxy]],
 ]);
+
+export const cars: Car[] = [
+	{
+		carId: 1,
+		userId: 1,
+		carBrand: CarBrand.BMW,
+		model: CarModel.X5,
+		yearOfIssue: 2010,
+		bodyType: BodyType.Crossover,
+		modification: 'Modification XXX',
+		condition: Condition.Used,
+		price: 5000,
+		notes: 'Notes',
+	},
+	{
+		carId: 2,
+		userId: 2,
+		carBrand: CarBrand.BMW,
+		model: CarModel.X6,
+		yearOfIssue: 2015,
+		bodyType: BodyType.Hatchback,
+		modification: 'Modification XLR',
+		condition: Condition.Used,
+		price: 13000,
+		notes: 'The best car',
+	},
+];
 
 export const users: User[] = [
 	{

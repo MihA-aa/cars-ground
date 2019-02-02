@@ -3,6 +3,8 @@ import { years } from './../../fake-server/fake-data';
 import { mapArrayToSelectOptions, mapEnumToSelectOptions } from './../../helpers/mappers';
 import { Condition, BodyType } from '../../data-interfaces/enums';
 
+export const formName = 'ad';
+
 export const fields = {
 	carBrand: 'carBrand',
 	carBrandLabel: 'Car Brand',

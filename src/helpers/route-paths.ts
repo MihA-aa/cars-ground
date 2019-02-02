@@ -5,4 +5,5 @@ export const routePaths = {
 	adCreate: '/Ad/Create',
 	adEdit: '/Ad/Edit/:id',
 	adView: '/Ad/View/:id',
+	notFound: '/NotFound',
 };

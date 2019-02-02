@@ -5,7 +5,7 @@ const Form = styled(FormComponent)`
 	&& {
 		max-width: 500px;
 		min-width: 200px;
-		margin: 0 150px;
+		margin: 20px 200px;
 	}
 `;
 

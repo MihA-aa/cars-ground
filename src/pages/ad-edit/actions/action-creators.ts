@@ -1,10 +1,9 @@
+import { AdFormValues } from './../interfaces';
 import { ActionCreator, Action } from 'redux';
 
 import { SelectOption } from './../../../data-interfaces/interfaces/select-option';
 import { CarBrand } from './../../../data-interfaces/enums/car-brand';
 import { AdActionTypes } from './action-types';
-import { ThunkDispatch } from 'redux-thunk';
-import { AdState } from '../reducer';
 
 const getBrandsRequest: ActionCreator<GetBrandsRequestAction> = () => ({
 	type: AdActionTypes.GET_BRANDS_REQUEST,
@@ -25,6 +24,19 @@ const modelsFetched: ActionCreator<ModelsFetchedAction> = (options: SelectOption
 	payload: { options },
 });
 
+const pageLoading: ActionCreator<PageLoadingAction> = () => ({
+	type: AdActionTypes.PAGE_LOADING,
+});
+
+const carLoaded: ActionCreator<CarLoadedAction> = (values: AdFormValues) => ({
+	type: AdActionTypes.CAR_LOADED,
+	payload: { values },
+});
+
+const pageLoaded: ActionCreator<PageLoadedAction> = () => ({
+	type: AdActionTypes.PAGE_LOADED,
+});
+
 interface GetBrandsRequestAction extends Action<AdActionTypes.GET_BRANDS_REQUEST> {}
 
 interface BrandsFetchedAction extends Action<AdActionTypes.BRANDS_FETCHED> {
@@ -39,12 +51,29 @@ interface ModelsFetchedAction extends Action<AdActionTypes.MODELS_FETCHED> {
 	payload: { options: SelectOption[] };
 }
 
+interface CarLoadedAction extends Action<AdActionTypes.CAR_LOADED> {
+	payload: { values: AdFormValues };
+}
+
+interface PageLoadingAction extends Action<AdActionTypes.PAGE_LOADING> {}
+
+interface PageLoadedAction extends Action<AdActionTypes.PAGE_LOADED> {}
+
 export type AdAction =
 	| GetBrandsRequestAction
 	| BrandsFetchedAction
 	| GetModelsRequestAction
-	| ModelsFetchedAction;
+	| ModelsFetchedAction
+	| PageLoadingAction
+	| CarLoadedAction
+	| PageLoadedAction;
 
-export type AdDispatch = ThunkDispatch<AdState, undefined, AdAction>;
-
-export { getBrandsRequest, getModelsRequest, brandsFetched, modelsFetched };
+export {
+	getBrandsRequest,
+	getModelsRequest,
+	brandsFetched,
+	modelsFetched,
+	pageLoading,
+	carLoaded,
+	pageLoaded,
+};
