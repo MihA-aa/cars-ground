@@ -2,7 +2,7 @@ import { reduxForm, InjectedFormProps } from 'redux-form';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { LoginForm } from './component';
-import { login } from './actions/actions';
+import { login } from './actions';
 import { routePaths } from '../../helpers/route-paths';
 
 export type LoginFormProps = RouteComponentProps &

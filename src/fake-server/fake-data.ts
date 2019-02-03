@@ -36,6 +36,7 @@ export const cars: Car[] = [
 
 export const users: User[] = [
 	{
+		token: '5wx4ite30latcrahwfi2mi01',
 		userId: 1,
 		nickname: 'User',
 		firstName: 'Ivan',
@@ -44,6 +45,7 @@ export const users: User[] = [
 		isAdmin: false,
 	},
 	{
+		token: 'ahx4ite3iw5w0ltcrmi01f2a',
 		userId: 2,
 		nickname: 'Mihail',
 		firstName: 'Mihail',

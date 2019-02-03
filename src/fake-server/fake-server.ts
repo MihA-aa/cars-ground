@@ -1,22 +1,28 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
-import { users, carToModel, cars } from './fake-data';
-import { LoginResponse, ApiResponse } from './interfaces';
-import { sleep, mapUserToLoginModel } from './helpers';
+import { carToModel } from './fake-data';
+import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
+import { sleep, mapUserToUserData, getUsers, getCars, updateCar, insertCar } from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { LoginFormValues } from '../pages/login';
 import { Car } from '../data-interfaces/interfaces/car';
-import data from './data.json';
 
-export const loginValidate = async (values: LoginFormValues): Promise<LoginResponse> => {
+export const loginValidate = async (values: LoginFormValues): Promise<LoginValidateResponse> => {
 	await sleep(1000);
-	const user = users.find(
-		(user_1) => user_1.nickname === values.userName && user_1.password === values.password,
+	const user = getUsers().find(
+		(u) => u.nickname === values.userName && u.password === values.password,
 	);
 	const result = user
-		? mapUserToLoginModel(user)
+		? { token: user.token }
 		: { errors: { error: 'Login failed; Invalid User name or Password' } };
-	return result as LoginResponse;
+	return result as LoginValidateResponse;
+};
+
+export const fetchUserSession = async (token: string): Promise<UserSessionResponse> => {
+	await sleep(1000);
+	const user = getUsers().find((u) => u.token === token);
+	const result = user ? mapUserToUserData(user) : { errors: { error: 'Authorization Failed' } };
+	return result as UserSessionResponse;
 };
 
 export const getBrands = async (): Promise<SelectOption[]> => {
@@ -32,10 +38,11 @@ export const getModels = async (brand: CarBrand): Promise<SelectOption[]> => {
 
 export const getCar = async (carId: number): Promise<Car | undefined> => {
 	await sleep(1000);
-	return cars.find((car) => car.carId === carId);
+	return getCars().find((car) => car.carId === carId);
 };
 
 export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {
 	await sleep(1000);
+	car.carId ? updateCar(car) : insertCar(car);
 	return {};
 };

@@ -1,20 +1,21 @@
-import { Dispatch } from 'redux';
 import { SubmissionError } from 'redux-form';
 import { message } from 'antd';
+import Cookies from 'js-cookie';
 
-import { loginValidate } from '../../../fake-server/fake-server';
-import { loginSuccess } from './action-creators';
-import { LoginFormValues } from '..';
+import { COOKIE_PATH, fetchUserData, AuthDispatch } from './../../auth/actions';
+import { loginValidate } from '../../fake-server/fake-server';
+import { LoginFormValues } from '.';
 
 export const login = (props: LoginFormValues, successCallback: () => void) => async (
-	dispatch: Dispatch,
+	dispatch: AuthDispatch,
 ) => {
 	const result = await loginValidate(props);
 	if (result.errors) {
 		message.error(result.errors.error);
 		throw new SubmissionError(result.errors);
 	} else {
-		dispatch(loginSuccess(result));
+		Cookies.set(COOKIE_PATH, result.token);
+		await dispatch(fetchUserData(result.token));
 		successCallback();
 	}
 };

@@ -1,4 +1,5 @@
 export interface User {
+	token: string;
 	userId: number;
 	nickname: string;
 	firstName: string;

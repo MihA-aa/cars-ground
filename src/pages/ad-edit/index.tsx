@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import { AdForm } from './component';
 import { StoreState } from '../../store/root-reducer';
 import { loadBrands, loadCar, changeBrand, submit } from './actions/actions';
-import { AdFormStateToProps, AdFormValues, PropsFromConnect } from './interfaces';
+import {
+	AdFormStateToProps,
+	AdFormValues,
+	PropsFromConnect,
+	AdDispatch,
+	AdFormDispatchToProps,
+} from './interfaces';
 import { withRouter } from 'react-router';
 import { withLoading } from '../../helpers/hocs/with-loading';
 import { formName } from './form-settings';
@@ -20,6 +26,12 @@ const mapStateToProps = ({ ad }: StoreState): AdFormStateToProps => ({
 	isLoading: ad.isLoading,
 });
 
+const mapDispatchToProps = (dispatch: AdDispatch): AdFormDispatchToProps => ({
+	loadBrands: async () => dispatch(await loadBrands()),
+	changeBrand: async (brand) => dispatch(await changeBrand(brand)),
+	loadCar: async (carId, notFoundCallback) => dispatch(await loadCar(carId, notFoundCallback)),
+});
+
 const ReduxAdForm = reduxForm<AdFormValues, PropsFromConnect>({
 	form: formName,
 	onSubmit: async (values, dispatch, props) => {
@@ -27,7 +39,7 @@ const ReduxAdForm = reduxForm<AdFormValues, PropsFromConnect>({
 	},
 })(withLoading(AdForm));
 
-export const AdEditPage = connect<AdFormStateToProps, {}, {}, StoreState>(
+export const AdEditPage = connect<AdFormStateToProps, AdFormDispatchToProps, null, StoreState>(
 	mapStateToProps,
-	{ loadBrands, changeBrand, loadCar },
+	mapDispatchToProps,
 )(withRouter(ReduxAdForm));

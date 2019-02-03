@@ -48,9 +48,9 @@ export interface AdFormStateToProps {
 }
 
 export interface AdFormDispatchToProps {
-	loadBrands: () => (dispatch: AdDispatch) => void;
-	changeBrand: (brand: CarBrand) => (dispatch: AdDispatch) => void;
-	loadCar: (carId: number, notFoundCallback: () => void) => (dispatch: AdDispatch) => Promise<void>;
+	loadBrands: () => Promise<void>;
+	changeBrand: (brand: CarBrand) => Promise<void>;
+	loadCar: (carId: number, notFoundCallback: () => void) => Promise<void>;
 }
 
 export type PropsFromConnect = RouteComponentProps<RouteParams> &

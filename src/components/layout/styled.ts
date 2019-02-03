@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Layout as AntdLayout } from 'antd';
+import { Styled as CommonStyled } from '../../styles/styled';
 
 const { Header: AntdHeader, Content: AntdContent, Footer: AntdFooter } = AntdLayout;
 
@@ -8,6 +9,10 @@ const RightMenu = styled.div`
 		position: absolute;
 		right: 50px;
 	}
+`;
+
+const RightMenuLink = styled(CommonStyled.Link)`
+	margin-left: 30px;
 `;
 
 const Header = styled(AntdHeader)`
@@ -46,4 +51,5 @@ export const Styled = {
 	Body,
 	Content,
 	Footer,
+	RightMenuLink,
 };

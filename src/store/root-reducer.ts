@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer, FormStateMap } from 'redux-form';
 
-import { UserAuthState, userAuthReducer } from '../pages/login/reducer';
+import { UserAuthState, userAuthReducer } from '../auth/reducer';
 import { adReducer } from '../pages/ad-edit/reducer';
 import { AdState } from '../pages/ad-edit/interfaces';
 
