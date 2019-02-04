@@ -1,7 +1,7 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
 import { carToModel } from './fake-data';
 import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
-import { sleep, mapUserToUserData, getUsers, getCars, updateCar, insertCar } from './helpers';
+import { sleep, mapUserToUserData, getUsers, getLocalCars, updateCar, insertCar } from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { LoginFormValues } from '../pages/login';
@@ -38,7 +38,12 @@ export const getModels = async (brand: CarBrand): Promise<SelectOption[]> => {
 
 export const getCar = async (carId: number): Promise<Car | undefined> => {
 	await sleep(1000);
-	return getCars().find((car) => car.carId === carId);
+	return getLocalCars().find((car) => car.carId === carId);
+};
+
+export const getCars = async (): Promise<Car[]> => {
+	await sleep(1000);
+	return getLocalCars();
 };
 
 export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {

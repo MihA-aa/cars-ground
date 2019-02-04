@@ -14,7 +14,7 @@ export enum LocalStorageKeys {
 	users = 'users',
 }
 
-export const getCars = (): Car[] => {
+export const getLocalCars = (): Car[] => {
 	const jsonCars = localStorage.getItem(LocalStorageKeys.cars);
 	return jsonCars ? JSON.parse(jsonCars) : [];
 };
@@ -24,13 +24,13 @@ export const insertCars = (cars: Car[]) => {
 };
 
 export const updateCar = (car: Car) => {
-	const cars = getCars();
+	const cars = getLocalCars();
 	const newCars = cars.map((c) => (c.carId === car.carId ? car : c));
 	insertCars(newCars);
 };
 
 export const insertCar = (car: Car) => {
-	const cars = getCars();
+	const cars = getLocalCars();
 	const maxCarId = Math.max.apply(Math, cars.map((c) => c.carId));
 	cars.push({ carId: maxCarId + 1, ...car });
 	insertCars(cars);

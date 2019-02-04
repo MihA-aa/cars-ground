@@ -14,7 +14,7 @@ import { AppProps } from './interfaces';
 import { Loading } from '../../pages/loading';
 
 export class App extends React.Component<AppProps> {
-	async componentWillMount() {
+	componentDidMount() {
 		initData();
 		this.props.initAuth();
 	}
