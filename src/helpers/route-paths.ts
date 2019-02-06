@@ -3,7 +3,7 @@ export const routePaths = {
 	login: '/login',
 	register: '/register',
 	adCreate: '/Ad/Create',
-	adEdit: '/Ad/Edit/:id',
-	adView: '/Ad/View/:id',
 	notFound: '/NotFound',
+	adEdit: (id: string = ':id') => `/Ad/Edit/${id}`,
+	adView: (id: string = ':id') => `/Ad/View/${id}`,
 };

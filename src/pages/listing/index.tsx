@@ -7,6 +7,7 @@ import { loadAds } from './actions/actions';
 
 const mapStateToProps = ({ listing }: StoreState): ListingStateToProps => ({
 	items: listing.items,
+	isLoaded: listing.isLoaded,
 });
 
 const mapDispatchToProps = (dispatch: ListingDispatch): ListingDispatchToProps => ({

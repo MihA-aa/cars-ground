@@ -4,7 +4,7 @@ import { Form as FormComponent, Button } from 'antd';
 const Form = styled(FormComponent)`
 	&& {
 		max-width: 500px;
-		min-width: 200px;
+		min-width: 250px;
 		margin: 20px 200px;
 	}
 `;

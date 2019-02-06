@@ -4,7 +4,7 @@ import { ListingActionTypes } from './action-types';
 import { ItemData } from '../interfaces';
 
 const getAdsRequest: ActionCreator<GetAdsRequestAction> = () => ({
-	type: ListingActionTypes.GET_BRANDS_REQUEST,
+	type: ListingActionTypes.GET_ADS_REQUEST,
 });
 
 const adsFetched: ActionCreator<AdsFetchedAction> = (items: ItemData[]) => ({
@@ -12,7 +12,7 @@ const adsFetched: ActionCreator<AdsFetchedAction> = (items: ItemData[]) => ({
 	payload: { items },
 });
 
-interface GetAdsRequestAction extends Action<ListingActionTypes.GET_BRANDS_REQUEST> {}
+interface GetAdsRequestAction extends Action<ListingActionTypes.GET_ADS_REQUEST> {}
 
 interface AdsFetchedAction extends Action<ListingActionTypes.ADS_FETCHED> {
 	payload: { items: ItemData[] };

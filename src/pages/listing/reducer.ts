@@ -3,24 +3,23 @@ import { ListingAction } from './actions/action-creators';
 import { ListingActionTypes } from './actions/action-types';
 
 const listData: ItemData[] = [];
-for (let i = 0; i < 23; i++) {
+for (let i = 0; i < 3; i++) {
 	listData.push({
-		href: 'http://ant.design',
-		title: `ant design part ${i}`,
-		avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-		description:
-			'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-		content:
-			'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-		starsCount: 156,
-		viewsCount: 1472,
-		commentsCount: 4,
-		photo: 'https://kor.ill.in.ua/m/610x385/2081558.jpg',
+		id: 0,
+		title: `Loading`,
+		avatar: 'Loading',
+		description: 'Loading',
+		content: 'Loading',
+		starsCount: 0,
+		viewsCount: 0,
+		commentsCount: 0,
+		photo: 'Loading',
 	});
 }
 
 const initialState: ListingState = {
 	items: listData,
+	isLoaded: false,
 };
 
 export const listingReducer = (
@@ -29,7 +28,7 @@ export const listingReducer = (
 ): ListingState => {
 	switch (action.type) {
 		case ListingActionTypes.ADS_FETCHED:
-			return { ...state, items: action.payload.items };
+			return { ...state, items: action.payload.items, isLoaded: true };
 
 		default:
 			return state;

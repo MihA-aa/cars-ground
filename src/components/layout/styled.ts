@@ -24,7 +24,7 @@ const Header = styled(AntdHeader)`
 
 const Body = styled(AntdContent)`
 	&& {
-		padding: 0 200px;
+		padding: 0 300px;
 	}
 `;
 
@@ -40,6 +40,12 @@ const Footer = styled(AntdFooter)`
 	}
 `;
 
+const Layout = styled(AntdLayout)`
+	&& {
+		min-height: 100vh;
+	}
+`;
+
 const PageHeader = styled.h2`
 	margin: 16px 0;
 `;
@@ -52,4 +58,5 @@ export const Styled = {
 	Content,
 	Footer,
 	RightMenuLink,
+	Layout,
 };

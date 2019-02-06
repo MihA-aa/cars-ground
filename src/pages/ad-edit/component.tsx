@@ -12,7 +12,7 @@ import { routePaths } from '../../helpers/route-paths';
 
 export class AdForm extends React.Component<AdFormProps> {
 	componentDidMount() {
-		if (this.props.match.path === routePaths.adEdit) {
+		if (this.props.match.path === routePaths.adEdit()) {
 			const adId = Number(this.props.match.params.id);
 			const notFoundRedirect = () => this.props.history.push(routePaths.notFound);
 			isNaN(adId) ? notFoundRedirect() : this.props.loadCar(adId, notFoundRedirect);

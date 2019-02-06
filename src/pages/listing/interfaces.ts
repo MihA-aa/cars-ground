@@ -3,6 +3,7 @@ import { ListingAction } from './actions/action-creators';
 
 export interface ListingState {
 	items: ItemData[];
+	isLoaded: boolean;
 }
 
 export type ListingDispatch = ThunkDispatch<ListingState, undefined, ListingAction>;
@@ -11,6 +12,7 @@ export type ListingProps = ListingStateToProps & ListingDispatchToProps;
 
 export interface ListingStateToProps {
 	items: ItemData[];
+	isLoaded: boolean;
 }
 
 export interface ListingDispatchToProps {
@@ -18,7 +20,7 @@ export interface ListingDispatchToProps {
 }
 
 export interface ItemData {
-	href: string;
+	id: number;
 	title: string;
 	avatar: string;
 	description?: string;

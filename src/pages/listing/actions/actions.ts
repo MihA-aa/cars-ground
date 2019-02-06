@@ -12,7 +12,7 @@ export const loadAds = () => async (dispatch: ListingDispatch) => {
 
 const mapCarsToItems = (cars: Car[]): ItemData[] => {
 	return cars.map((car) => ({
-		href: `http://localhost:3000/Ad/Edit/${car.carId}`,
+		id: car.carId,
 		title: `${CarBrand[car.carBrand]} ${CarModel[car.model]}`,
 		avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
 		description: car.notes,
