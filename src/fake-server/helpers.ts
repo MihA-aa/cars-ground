@@ -38,12 +38,37 @@ export const updateCar = (car: Car) => {
 
 export const insertCar = (car: Car) => {
 	const cars = getLocalCars();
-	const maxCarId = Math.max.apply(Math, cars.map((c) => c.carId));
-	cars.push({ carId: maxCarId + 1, ...car });
+	cars.push(car);
 	insertCars(cars);
+};
+
+export const insertAds = (ads: Ad[]) => {
+	localStorage.setItem(LocalStorageKeys.ads, JSON.stringify(ads));
+};
+
+export const insertAd = (ad: Ad) => {
+	const ads = getLocalAds();
+	ads.push(ad);
+	insertAds(ads);
+};
+
+export const updateAdCar = (car: Car) => {
+	const ads = getLocalAds();
+	const newAds = ads.map((ad) => (ad.car.carId === car.carId ? { ...ad, car } : ad));
+	insertAds(newAds);
 };
 
 export const getUsers = (): User[] => {
 	const users = localStorage.getItem(LocalStorageKeys.users);
 	return users ? JSON.parse(users) : [];
+};
+
+export const generateCarId = (): number => {
+	const cars = getLocalCars();
+	return Math.max.apply(Math, cars.map((c) => c.carId)) + 1;
+};
+
+export const generateAdId = (): number => {
+	const ads = getLocalAds();
+	return Math.max.apply(Math, ads.map((c) => c.adId)) + 1;
 };

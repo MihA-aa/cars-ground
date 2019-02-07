@@ -7,7 +7,7 @@ export interface ListingState {
 	isLoaded: boolean;
 }
 
-export type ListingDispatch = BaseDispatch<ListingState, ListingAction>;
+export type ListingDispatch = BaseDispatch<ListingAction>;
 
 export type ListingProps = ListingStateToProps & ListingDispatchToProps;
 

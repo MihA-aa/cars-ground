@@ -1,5 +1,5 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
-import { carToModel, defaultPhoto } from './fake-data';
+import { carToModel, defaultPhoto, defaultMetadata } from './fake-data';
 import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
 import {
 	sleep,
@@ -9,6 +9,12 @@ import {
 	updateCar,
 	insertCar,
 	getLocalAds,
+	updateAdCar,
+	generateCarId,
+	generateAdId,
+	insertAd,
+	insertAds,
+	insertCars,
 } from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
@@ -55,9 +61,26 @@ export const getCars = async (): Promise<Car[]> => {
 	return getLocalCars();
 };
 
-export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {
+export const saveCar = async (car: Car, userId: number): Promise<ApiResponse<{}>> => {
 	await sleep(1000);
-	car.carId ? updateCar({ ...car, photo: defaultPhoto }) : insertCar(car);
+	if (car.carId) {
+		updateCar(car);
+		updateAdCar(car);
+	} else {
+		car = { carId: generateCarId(), ...car, photo: defaultPhoto };
+		const ad: Ad = { userId, adId: generateAdId(), car, meta: defaultMetadata };
+		insertCar(car);
+		insertAd(ad);
+	}
+	return {};
+};
+
+export const removeCar = async (carId: number): Promise<ApiResponse<{}>> => {
+	await sleep(1000);
+	const newAds = getLocalAds().filter((ad) => ad.car.carId !== carId);
+	const newCars = getLocalCars().filter((car) => car.carId !== carId);
+	insertAds(newAds);
+	insertCars(newCars);
 	return {};
 };
 
@@ -69,4 +92,9 @@ export const getAds = async (): Promise<Ad[]> => {
 export const getAd = async (adId: number): Promise<Ad | undefined> => {
 	await sleep(1000);
 	return getLocalAds().find((ad) => ad.adId === adId);
+};
+
+export const isOwner = async (adId: number, userId: number): Promise<boolean> => {
+	await sleep(10);
+	return !!getLocalAds().find((ad) => ad.adId === adId && ad.userId === userId);
 };

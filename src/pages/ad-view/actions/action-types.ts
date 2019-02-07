@@ -1,3 +1,5 @@
 export enum ViewActionTypes {
 	AD_FETCHED = 'AD_FETCHED',
+	SET_IS_OWNER = 'SET_IS_OWNER',
+	SET_REMOVING = 'SET_REMOVING',
 }

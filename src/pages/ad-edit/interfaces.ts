@@ -28,7 +28,7 @@ export interface AdFormValues {
 	photo: string;
 }
 
-export type AdDispatch = BaseDispatch<AdState, AdAction>;
+export type AdDispatch = BaseDispatch<AdAction>;
 
 interface RouteParams {
 	id: string;
@@ -45,6 +45,7 @@ export interface AdFormStateToProps {
 	modelsLoading: boolean;
 	modelDisabled: boolean;
 	initialValues: AdFormValues;
+	userId: number;
 }
 
 export interface AdFormDispatchToProps {
@@ -52,6 +53,7 @@ export interface AdFormDispatchToProps {
 	changeBrand: (brand: CarBrand) => Promise<void>;
 	loadCar: () => Promise<void>;
 	resetForm: () => void;
+	cancel: () => void;
 }
 
 export type PropsFromConnect = RouteProps & AdFormStateToProps & AdFormDispatchToProps;

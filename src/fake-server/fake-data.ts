@@ -10,6 +10,14 @@ export const carToModel = new Map<CarBrand, CarModel[]>([
 ]);
 
 export const defaultPhoto = 'https://kor.ill.in.ua/m/610x385/2081558.jpg';
+export const defaultAvatar = 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png';
+
+export const defaultMetadata: MetaData = {
+	avatar: defaultAvatar,
+	stars: 0,
+	views: 0,
+	comments: 0,
+};
 
 export const cars: Car[] = [
 	{
@@ -52,19 +60,19 @@ export const cars: Car[] = [
 
 export const metaData: MetaData[] = [
 	{
-		avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+		avatar: defaultAvatar,
 		stars: 242,
 		views: 1835,
 		comments: 5,
 	},
 	{
-		avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+		avatar: defaultAvatar,
 		stars: 351,
 		views: 5123,
 		comments: 14,
 	},
 	{
-		avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+		avatar: defaultAvatar,
 		stars: 32,
 		views: 427,
 		comments: 0,

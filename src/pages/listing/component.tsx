@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { List } from 'antd';
 
 import { Item } from './item';
@@ -9,7 +9,7 @@ export class Listing extends React.Component<ListingProps> {
 		this.props.loadAds();
 	}
 
-	render = () => (
+	render = (): ReactNode => (
 		<List
 			itemLayout='vertical'
 			size='large'

@@ -4,10 +4,11 @@ import { ViewAction } from './actions/action-creators';
 import { Ad } from '../../data-interfaces/interfaces/ad';
 import { RouteComponentProps } from 'react-router-dom';
 
-export type ViewDispatch = BaseDispatch<ViewState, ViewAction>;
+export type ViewDispatch = BaseDispatch<ViewAction>;
 
 export interface AdViewStateToProps {
 	data: Ad;
+	isOwner: boolean;
 }
 
 export interface AdViewDispatchToProps {
@@ -16,6 +17,8 @@ export interface AdViewDispatchToProps {
 
 export interface ViewState {
 	data: Ad;
+	isOwner: boolean;
+	removing: boolean;
 }
 
 interface RouteParams {

@@ -8,10 +8,28 @@ const adFetched: ActionCreator<AdFetchedAction> = (data: Ad) => ({
 	payload: { data },
 });
 
+const setIsOwner: ActionCreator<SetIsOwnerAction> = (isOwner: boolean) => ({
+	type: ViewActionTypes.SET_IS_OWNER,
+	payload: { isOwner },
+});
+
+const setRemoving: ActionCreator<SetRemovingAction> = (removing: boolean) => ({
+	type: ViewActionTypes.SET_REMOVING,
+	payload: { removing },
+});
+
 interface AdFetchedAction extends Action<ViewActionTypes.AD_FETCHED> {
 	payload: { data: Ad };
 }
 
-export type ViewAction = AdFetchedAction;
+interface SetIsOwnerAction extends Action<ViewActionTypes.SET_IS_OWNER> {
+	payload: { isOwner: boolean };
+}
 
-export { adFetched };
+interface SetRemovingAction extends Action<ViewActionTypes.SET_REMOVING> {
+	payload: { removing: boolean };
+}
+
+export type ViewAction = AdFetchedAction | SetIsOwnerAction | SetRemovingAction;
+
+export { adFetched, setIsOwner, setRemoving };

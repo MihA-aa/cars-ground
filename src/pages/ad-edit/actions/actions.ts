@@ -49,8 +49,8 @@ export const loadCar = (carId: number, notFoundCallback: () => void) => async (
 	dispatch(contentLoaded());
 };
 
-export const submit = async (values: AdFormValues, successCallback: () => void) => {
-	const result = await saveCar(values);
+export const submit = async (values: AdFormValues, userId: number, successCallback: () => void) => {
+	const result = await saveCar(values, userId);
 	if (result.errors) {
 		message.error(result.errors.error);
 		throw new SubmissionError(result.errors);

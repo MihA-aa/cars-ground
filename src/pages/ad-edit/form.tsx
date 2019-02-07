@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button } from 'antd';
 import { Field } from 'redux-form';
 
-import { required } from '../../helpers/validation-rules';
+import { required, onlyNumber } from '../../helpers/validation-rules';
 import { Input, TextArea } from '../../helpers/fields';
 import { Styled } from './styled';
 import { AdFormSelectField, AdFormRadioField, currenciesPostfix } from './fields';
@@ -23,10 +23,6 @@ export class AdForm extends React.Component<AdFormProps> {
 		this.props.resetForm();
 	}
 
-	cancel = () => {
-		alert('cancel');
-	};
-
 	render() {
 		const {
 			handleSubmit,
@@ -38,6 +34,7 @@ export class AdForm extends React.Component<AdFormProps> {
 			modelsLoading,
 			modelDisabled,
 			changeBrand,
+			cancel,
 		} = this.props;
 		return (
 			<Styled.Form onSubmit={handleSubmit}>
@@ -84,7 +81,7 @@ export class AdForm extends React.Component<AdFormProps> {
 					component={Input}
 					label={fields.priceLabel}
 					name={fields.price}
-					validate={required}
+					validate={[required, onlyNumber]}
 					required={true}
 					addonAfter={currenciesPostfix()}
 					{...formItemLayout}
@@ -100,7 +97,7 @@ export class AdForm extends React.Component<AdFormProps> {
 					<Styled.SubmitButton loading={submitting} disabled={pristine || submitting}>
 						Sumbit
 					</Styled.SubmitButton>
-					<Button onClick={this.cancel}>Cancel</Button>
+					<Button onClick={cancel}>Cancel</Button>
 				</Form.Item>
 			</Styled.Form>
 		);

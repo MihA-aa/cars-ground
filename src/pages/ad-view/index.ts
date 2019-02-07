@@ -7,8 +7,9 @@ import { loadAd } from './actions/actions';
 import { withRouter } from 'react-router-dom';
 import { routePaths } from '../../helpers/route-paths';
 
-const mapStateToProps = ({ view, page }: StoreState): AdViewStateToProps => ({
+const mapStateToProps = ({ view }: StoreState): AdViewStateToProps => ({
 	data: view.data,
+	isOwner: view.isOwner,
 });
 
 const mapDispatchToProps = (dispatch: ViewDispatch, props: RootProps): AdViewDispatchToProps => {

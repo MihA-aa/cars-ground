@@ -17,7 +17,24 @@ const Row = styled(ARow)`
 	}
 `;
 
+const Information = styled.div`
+	margin: 10px;
+	margin-right: 20px;
+`;
+
+const Labels = styled.div`
+	margin: 30px;
+	font-size: 15px;
+`;
+
+const Price = styled.h1`
+	border-bottom: 1px solid #e8e8e8;
+`;
+
 export const Styled = {
+	Information,
+	Labels,
+	Price,
 	Item,
 	Row,
 };

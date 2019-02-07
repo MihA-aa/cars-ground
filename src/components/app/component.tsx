@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { Layout } from '../layout';
@@ -19,7 +19,7 @@ export class App extends React.Component<AppProps> {
 		this.props.initAuth();
 	}
 
-	render = () =>
+	render = (): ReactNode =>
 		this.props.isLoading ? (
 			<Loading />
 		) : (

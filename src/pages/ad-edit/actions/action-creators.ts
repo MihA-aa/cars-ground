@@ -29,6 +29,12 @@ const carLoaded: ActionCreator<CarLoadedAction> = (values: AdFormValues) => ({
 	payload: { values },
 });
 
+const resetInitialValues: ActionCreator<ResetInitialValuesAction> = () => ({
+	type: AdActionTypes.RESET_INITIAL_VALUES,
+});
+
+interface ResetInitialValuesAction extends Action<AdActionTypes.RESET_INITIAL_VALUES> {}
+
 interface GetBrandsRequestAction extends Action<AdActionTypes.GET_BRANDS_REQUEST> {}
 
 interface BrandsFetchedAction extends Action<AdActionTypes.BRANDS_FETCHED> {
@@ -52,6 +58,14 @@ export type AdAction =
 	| BrandsFetchedAction
 	| GetModelsRequestAction
 	| ModelsFetchedAction
-	| CarLoadedAction;
+	| CarLoadedAction
+	| ResetInitialValuesAction;
 
-export { getBrandsRequest, getModelsRequest, brandsFetched, modelsFetched, carLoaded };
+export {
+	getBrandsRequest,
+	getModelsRequest,
+	brandsFetched,
+	modelsFetched,
+	carLoaded,
+	resetInitialValues,
+};

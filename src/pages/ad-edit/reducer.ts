@@ -33,6 +33,9 @@ export const adReducer = (state: AdState = initialState, action: AdAction): AdSt
 		case AdActionTypes.CAR_LOADED:
 			return { ...state, initialValues: action.payload.values };
 
+		case AdActionTypes.RESET_INITIAL_VALUES:
+			return { ...state, initialValues: null };
+
 		default:
 			return state;
 	}

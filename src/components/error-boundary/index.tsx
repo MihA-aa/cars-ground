@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface ErrorBoundaryState {
 	hasError: boolean;
@@ -17,7 +17,7 @@ export class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
 		console.error(error, info);
 	}
 
-	render = () =>
+	render = (): ReactNode =>
 		this.state.hasError ? (
 			<div>
 				<h2>Something was wrong...</h2>

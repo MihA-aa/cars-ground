@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
 import { message } from 'antd';
 
-import { UserAuthState } from './reducer';
 import { fetchUserSession } from '../fake-server/fake-server';
 import { AuthAction, authenticationSuccess, logoutAction } from './action-creators';
 import { pageLoaded } from '../pages/page/action-creators';
@@ -9,7 +8,7 @@ import { BaseDispatch } from '../helpers/base-dispatch';
 
 export const COOKIE_PATH = 'oauthToken';
 
-export type AuthDispatch = BaseDispatch<UserAuthState, AuthAction>;
+export type AuthDispatch = BaseDispatch<AuthAction>;
 
 export const initAuth = () => async (dispatch: AuthDispatch) => {
 	const oauthToken = Cookies.get(COOKIE_PATH);
