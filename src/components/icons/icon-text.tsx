@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon } from 'antd';
+
+import { Styled } from './styled';
 
 interface IconTextProps {
 	type: string;
@@ -8,7 +9,7 @@ interface IconTextProps {
 
 export const IconText: React.FC<IconTextProps> = ({ type, text }) => (
 	<span>
-		<Icon type={type} style={{ marginRight: 8 }} />
+		<Styled.Icon type={type} />
 		{text}
 	</span>
 );

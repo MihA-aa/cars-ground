@@ -13,13 +13,16 @@ import { routePaths } from '../../helpers/route-paths';
 export class AdForm extends React.Component<AdFormProps> {
 	componentDidMount() {
 		if (this.props.match.path === routePaths.adEdit()) {
-			const adId = Number(this.props.match.params.id);
-			const notFoundRedirect = () => this.props.history.push(routePaths.notFound);
-			isNaN(adId) ? notFoundRedirect() : this.props.loadCar(adId, notFoundRedirect);
+			this.props.loadCar();
 		} else {
 			this.props.loadBrands();
 		}
 	}
+
+	componentWillUnmount() {
+		this.props.resetForm();
+	}
+
 	cancel = () => {
 		alert('cancel');
 	};
@@ -39,7 +42,7 @@ export class AdForm extends React.Component<AdFormProps> {
 		return (
 			<Styled.Form onSubmit={handleSubmit}>
 				<Field name='carId' component='input' type='hidden' />
-				<Field name='userId' component='input' type='hidden' />
+				<Field name='photo' component='input' type='hidden' />
 				<AdFormSelectField
 					label={fields.carBrandLabel}
 					name={fields.carBrand}
@@ -94,7 +97,9 @@ export class AdForm extends React.Component<AdFormProps> {
 					{...formItemLayout}
 				/>
 				<Form.Item {...tailFormItemLayout}>
-					<Styled.SubmitButton disabled={pristine || submitting}>Sumbit</Styled.SubmitButton>
+					<Styled.SubmitButton loading={submitting} disabled={pristine || submitting}>
+						Sumbit
+					</Styled.SubmitButton>
 					<Button onClick={this.cancel}>Cancel</Button>
 				</Form.Item>
 			</Styled.Form>

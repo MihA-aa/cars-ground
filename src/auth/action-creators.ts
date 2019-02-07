@@ -12,18 +12,12 @@ const logoutAction: ActionCreator<LogoutAction> = () => ({
 	type: AuthActionTypes.LOGOUT,
 });
 
-const pageLoadedAction: ActionCreator<PageLoadedAction> = () => ({
-	type: AuthActionTypes.PAGE_LOADED,
-});
-
 interface AuthenticationSuccessAction extends Action<AuthActionTypes.AUTHENTICATION_SUCCESS> {
 	payload: UserData;
 }
 
 interface LogoutAction extends Action<AuthActionTypes.LOGOUT> {}
 
-interface PageLoadedAction extends Action<AuthActionTypes.PAGE_LOADED> {}
+export type AuthAction = AuthenticationSuccessAction | LogoutAction;
 
-export type AuthAction = AuthenticationSuccessAction | LogoutAction | PageLoadedAction;
-
-export { authenticationSuccess, logoutAction, pageLoadedAction };
+export { authenticationSuccess, logoutAction };

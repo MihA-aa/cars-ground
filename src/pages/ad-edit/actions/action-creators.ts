@@ -24,17 +24,9 @@ const modelsFetched: ActionCreator<ModelsFetchedAction> = (options: SelectOption
 	payload: { options },
 });
 
-const pageLoading: ActionCreator<PageLoadingAction> = () => ({
-	type: AdActionTypes.PAGE_LOADING,
-});
-
 const carLoaded: ActionCreator<CarLoadedAction> = (values: AdFormValues) => ({
 	type: AdActionTypes.CAR_LOADED,
 	payload: { values },
-});
-
-const pageLoaded: ActionCreator<PageLoadedAction> = () => ({
-	type: AdActionTypes.PAGE_LOADED,
 });
 
 interface GetBrandsRequestAction extends Action<AdActionTypes.GET_BRANDS_REQUEST> {}
@@ -55,25 +47,11 @@ interface CarLoadedAction extends Action<AdActionTypes.CAR_LOADED> {
 	payload: { values: AdFormValues };
 }
 
-interface PageLoadingAction extends Action<AdActionTypes.PAGE_LOADING> {}
-
-interface PageLoadedAction extends Action<AdActionTypes.PAGE_LOADED> {}
-
 export type AdAction =
 	| GetBrandsRequestAction
 	| BrandsFetchedAction
 	| GetModelsRequestAction
 	| ModelsFetchedAction
-	| PageLoadingAction
-	| CarLoadedAction
-	| PageLoadedAction;
+	| CarLoadedAction;
 
-export {
-	getBrandsRequest,
-	getModelsRequest,
-	brandsFetched,
-	modelsFetched,
-	pageLoading,
-	carLoaded,
-	pageLoaded,
-};
+export { getBrandsRequest, getModelsRequest, brandsFetched, modelsFetched, carLoaded };

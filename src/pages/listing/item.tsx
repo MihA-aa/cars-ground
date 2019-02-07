@@ -2,33 +2,31 @@ import React from 'react';
 import { List, Avatar, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { IconText } from '../../components/icon-text';
 import { routePaths } from '../../helpers/route-paths';
-import { ItemData } from './interfaces';
+import { Ad } from '../../data-interfaces/interfaces/ad';
+import { CarBrand, CarModel } from '../../data-interfaces/enums';
+import { icons } from '../../components/icons';
 
-export const Item: React.FC<ItemData> = (props) => {
-	const IsLoading = props.title === 'Loading';
+export const Item: React.FC<Ad> = (props) => {
+	const { adId, meta, car } = props;
+	const IsLoading = !adId;
 	return (
 		<List.Item
-			key={props.title}
-			actions={
-				IsLoading
-					? []
-					: [
-							<IconText type='star-o' text={props.starsCount.toString()} />,
-							<IconText type='eye' text={props.viewsCount.toString()} />,
-							<IconText type='message' text={props.commentsCount.toString()} />,
-					  ]
-			}
-			extra={!IsLoading && <img width={272} alt='logo' src={props.photo} />}
+			key={props.adId}
+			actions={IsLoading ? [] : icons(meta.stars, meta.views, meta.comments)}
+			extra={!IsLoading && <img width={272} alt='logo' src={car.photo} />}
 		>
 			<Skeleton loading={IsLoading} active avatar paragraph={{ rows: 3 }}>
 				<List.Item.Meta
-					avatar={<Avatar src={props.avatar} />}
-					title={<Link to={routePaths.adView(props.id.toString())}>{props.title}</Link>}
-					description={props.description}
+					avatar={<Avatar src={meta.avatar} />}
+					title={
+						<Link to={routePaths.adView(adId.toString())}>
+							{CarBrand[car.carBrand]} {CarModel[car.model]}
+						</Link>
+					}
+					description={car.notes}
 				/>
-				{props.content}
+				{car.price} {car.yearOfIssue} {car.modification} {car.condition}
 			</Skeleton>
 		</List.Item>
 	);

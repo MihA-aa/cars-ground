@@ -5,7 +5,7 @@ export interface AppDispatchProps {
 }
 
 export interface AppStateProps {
-	isLoaded: boolean;
+	isLoading: boolean;
 }
 
 export type AppProps = AppDispatchProps & RouteComponentProps & AppStateProps;

@@ -3,7 +3,6 @@ import { AdActionTypes } from './actions/action-types';
 import { AdState } from './interfaces';
 
 const initialState: AdState = {
-	isLoading: false,
 	brandOptions: [],
 	modelOptions: [],
 	brandsLoading: false,
@@ -31,14 +30,8 @@ export const adReducer = (state: AdState = initialState, action: AdAction): AdSt
 				modelDisabled: false,
 			};
 
-		case AdActionTypes.PAGE_LOADING:
-			return { ...state, isLoading: true };
-
 		case AdActionTypes.CAR_LOADED:
 			return { ...state, initialValues: action.payload.values };
-
-		case AdActionTypes.PAGE_LOADED:
-			return { ...state, isLoading: false };
 
 		default:
 			return state;

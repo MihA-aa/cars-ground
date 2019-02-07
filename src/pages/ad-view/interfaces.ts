@@ -1,11 +1,27 @@
-import { ItemData } from './../listing/interfaces';
+import { BaseDispatch } from './../../helpers/base-dispatch';
+
+import { ViewAction } from './actions/action-creators';
+import { Ad } from '../../data-interfaces/interfaces/ad';
+import { RouteComponentProps } from 'react-router-dom';
+
+export type ViewDispatch = BaseDispatch<ViewState, ViewAction>;
 
 export interface AdViewStateToProps {
-	data: ItemData;
+	data: Ad;
+}
+
+export interface AdViewDispatchToProps {
+	loadAd: () => Promise<void>;
 }
 
 export interface ViewState {
-	data?: ItemData;
+	data: Ad;
 }
 
-export type AdViewProps = AdViewStateToProps;
+interface RouteParams {
+	id: string;
+}
+
+export type RootProps = RouteComponentProps<RouteParams>;
+
+export type AdViewProps = AdViewStateToProps & AdViewDispatchToProps & RootProps;

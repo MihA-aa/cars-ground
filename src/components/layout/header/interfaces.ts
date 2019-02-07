@@ -6,7 +6,7 @@ export interface HeaderStateProps {
 }
 
 export interface HeaderDispatchProps {
-	logout: (callback: () => void) => void;
+	logout: () => void;
 }
 
 export type HeaderProps = HeaderStateProps & HeaderDispatchProps & RouteComponentProps;

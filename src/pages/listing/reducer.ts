@@ -1,20 +1,12 @@
-import { ListingState, ItemData } from './interfaces';
+import { ListingState } from './interfaces';
 import { ListingAction } from './actions/action-creators';
 import { ListingActionTypes } from './actions/action-types';
+import { Ad } from '../../data-interfaces/interfaces/ad';
+import { emptyAd } from '../../fake-server/fake-data';
 
-const listData: ItemData[] = [];
+const listData: Ad[] = [];
 for (let i = 0; i < 3; i++) {
-	listData.push({
-		id: 0,
-		title: `Loading`,
-		avatar: 'Loading',
-		description: 'Loading',
-		content: 'Loading',
-		starsCount: 0,
-		viewsCount: 0,
-		commentsCount: 0,
-		photo: 'Loading',
-	});
+	listData.push(emptyAd);
 }
 
 const initialState: ListingState = {

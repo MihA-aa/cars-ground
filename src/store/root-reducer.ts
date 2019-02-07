@@ -9,6 +9,7 @@ import { AdState } from '../pages/ad-edit/interfaces';
 import { listingReducer } from '../pages/listing/reducer';
 import { ListingState } from '../pages/listing/interfaces';
 import { viewReducer } from './../pages/ad-view/reducer';
+import { PageState, pageReducer } from '../pages/page/reducer';
 
 export interface StoreState {
 	form: FormStateMap;
@@ -16,6 +17,7 @@ export interface StoreState {
 	ad: AdState;
 	listing: ListingState;
 	view: ViewState;
+	page: PageState;
 }
 
 const store = {
@@ -24,6 +26,7 @@ const store = {
 	ad: adReducer,
 	listing: listingReducer,
 	view: viewReducer,
+	page: pageReducer,
 };
 
 export default combineReducers<StoreState>(store);

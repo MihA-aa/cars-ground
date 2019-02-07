@@ -4,6 +4,10 @@ import { Styled as CommonStyled } from '../../styles/styled';
 
 const { Header: AntdHeader, Content: AntdContent, Footer: AntdFooter } = AntdLayout;
 
+interface ContentProps {
+	isLoading: boolean;
+}
+
 const RightMenu = styled.div`
 	&& {
 		position: absolute;
@@ -24,14 +28,20 @@ const Header = styled(AntdHeader)`
 
 const Body = styled(AntdContent)`
 	&& {
-		padding: 0 300px;
+		padding: 0 200px;
 	}
 `;
 
-const Content = styled.div`
+const ContentWrapper = styled.div`
 	background: #fff;
 	padding: 24px;
-	min-height: 280px;
+	min-height: 400px;
+	display: flex;
+`;
+
+const Content = styled.div<ContentProps>`
+	flex: 1;
+	display: ${(props) => (props.isLoading ? 'none' : 'block')};
 `;
 
 const Footer = styled(AntdFooter)`
@@ -59,4 +69,5 @@ export const Styled = {
 	Footer,
 	RightMenuLink,
 	Layout,
+	ContentWrapper,
 };

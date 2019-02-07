@@ -1,23 +1,17 @@
 import { ActionCreator, Action } from 'redux';
 
 import { ListingActionTypes } from './action-types';
-import { ItemData } from '../interfaces';
+import { Ad } from '../../../data-interfaces/interfaces/ad';
 
-const getAdsRequest: ActionCreator<GetAdsRequestAction> = () => ({
-	type: ListingActionTypes.GET_ADS_REQUEST,
-});
-
-const adsFetched: ActionCreator<AdsFetchedAction> = (items: ItemData[]) => ({
+const adsFetched: ActionCreator<AdsFetchedAction> = (items: Ad[]) => ({
 	type: ListingActionTypes.ADS_FETCHED,
 	payload: { items },
 });
 
-interface GetAdsRequestAction extends Action<ListingActionTypes.GET_ADS_REQUEST> {}
-
 interface AdsFetchedAction extends Action<ListingActionTypes.ADS_FETCHED> {
-	payload: { items: ItemData[] };
+	payload: { items: Ad[] };
 }
 
-export type ListingAction = GetAdsRequestAction | AdsFetchedAction;
+export type ListingAction = AdsFetchedAction;
 
-export { getAdsRequest, adsFetched };
+export { adsFetched };

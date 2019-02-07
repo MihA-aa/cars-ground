@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Loader, SpinnerProps } from '../../components/loader';
+import { WrapLoader, LoaderProps } from '../../components/loader';
 
-export const withLoading = <P extends SpinnerProps>(
+export const withLoading = <P extends LoaderProps>(
 	Component: React.ComponentType<P>,
-): React.FC<P> => ({ isLoading, ...props }: SpinnerProps) => (
-	<Loader isLoading={isLoading}>
+): React.FC<P> => ({ isLoading, ...props }: LoaderProps) => (
+	<WrapLoader isLoading={isLoading}>
 		<Component {...props as P} />
-	</Loader>
+	</WrapLoader>
 );

@@ -2,7 +2,6 @@ import * as Enum from '../enums';
 
 export interface Car {
 	carId: number;
-	userId: number;
 	carBrand: Enum.CarBrand;
 	model: Enum.CarModel;
 	bodyType: Enum.BodyType;
@@ -17,6 +16,7 @@ export interface Car {
 	price: number;
 	modification?: string;
 	notes?: string;
+	photo: string;
 	// climateControl?: boolean;
 	// cruiseControl?: boolean;
 	// signaling?: boolean;

@@ -20,7 +20,7 @@ export class App extends React.Component<AppProps> {
 	}
 
 	render = () =>
-		!this.props.isLoaded ? (
+		this.props.isLoading ? (
 			<Loading />
 		) : (
 			<Switch>

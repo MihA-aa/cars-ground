@@ -1,52 +1,62 @@
 import React from 'react';
-import { List, Row, Col } from 'antd';
+import { Col } from 'antd';
 
-import { IconText } from '../../components/icon-text';
+import { icons } from '../../components/icons';
 import { AdViewProps } from './interfaces';
+import { CarModel, CarBrand, BodyType, Condition } from '../../data-interfaces/enums';
 
-export class AdView extends React.Component {
-	render = () => (
-		<div>
-			<h1>Geely SC7 Prestige, 2016</h1>
-			<div style={{ borderBottom: '1px solid #e8e8e8', marginBottom: '10px', marginTop: '-10px' }}>
-				<List.Item
-					actions={[
-						<IconText type='star-o' text={'156'} />,
-						<IconText type='eye' text={'1472'} />,
-						<IconText type='message' text={'4'} />,
-					]}
-				/>
-			</div>
-			<Row
-				style={{ borderBottom: '1px solid #e8e8e8', marginBottom: '15px', paddingBottom: '20px' }}
-			>
-				<Col span={8}>
-					<div style={{ margin: '10px', marginRight: '20px' }}>
-						<h1 style={{ borderBottom: '1px solid #e8e8e8' }}>20 000 $</h1>
-						<div style={{ margin: '30px', fontSize: '15px' }}>
-							<LabelInformation label='Year of issue' value='2016' />
-							<LabelInformation label='Body type' value='Crossover' />
-							<LabelInformation label='Condition' value='Used' />
+import { Styled } from './styled';
+
+const labels = {
+	yearOfIssue: 'Year of issue',
+	bodyType: 'Body type',
+	condition: 'Condition',
+};
+
+export class AdView extends React.Component<AdViewProps> {
+	componentDidMount() {
+		this.props.loadAd();
+	}
+
+	render = () => {
+		const {
+			data: { car, meta },
+		} = this.props;
+		return (
+			<div>
+				<h1>
+					{CarBrand[car.carBrand]} {CarModel[car.model]}, {car.yearOfIssue}
+				</h1>
+				<Styled.Item actions={icons(meta.stars, meta.views, meta.comments)} />
+				<Styled.Row>
+					<Col span={8}>
+						<div style={{ margin: '10px', marginRight: '20px' }}>
+							<h1 style={{ borderBottom: '1px solid #e8e8e8' }}>{car.price} $</h1>
+							<div style={{ margin: '30px', fontSize: '15px' }}>
+								<LabelInformation label={labels.yearOfIssue} value={car.yearOfIssue} />
+								<LabelInformation label={labels.bodyType} value={BodyType[car.bodyType]} />
+								<LabelInformation label={labels.condition} value={Condition[car.condition]} />
+							</div>
 						</div>
-					</div>
-				</Col>
-				<Col span={16}>
-					<img width={750} alt='logo' src={'https://kor.ill.in.ua/m/610x385/2081558.jpg'} />
-				</Col>
-			</Row>
-		</div>
-	);
+					</Col>
+					<Col span={16}>
+						<img width={600} alt='logo' src={car.photo} />
+					</Col>
+				</Styled.Row>
+			</div>
+		);
+	};
 }
 
 interface LabelInformationProps {
 	label: string;
-	value: string;
+	value: string | number;
 }
 
 const LabelInformation: React.FC<LabelInformationProps> = ({ label, value }) => (
 	<div style={{ marginBottom: '10px' }}>
 		{label}{' '}
-		<span style={{ color: 'black', right: '150px', display: 'inline-block', position: 'absolute' }}>
+		<span style={{ color: 'black', right: '50px', display: 'inline-block', position: 'absolute' }}>
 			{value}
 		</span>
 	</div>

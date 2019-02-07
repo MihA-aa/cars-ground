@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { SelectOption } from './../../data-interfaces/interfaces/select-option';
 import { CarBrand, BodyType, CarModel, Condition } from './../../data-interfaces/enums';
 import { AdAction } from './actions/action-creators';
-import { ThunkDispatch } from 'redux-thunk';
+import { BaseDispatch } from '../../helpers/base-dispatch';
 
 export interface AdState {
 	brandOptions: SelectOption[];
@@ -12,13 +12,11 @@ export interface AdState {
 	brandsLoading: boolean;
 	modelsLoading: boolean;
 	modelDisabled: boolean;
-	isLoading: boolean;
 	initialValues: AdFormValues | null;
 }
 
 export interface AdFormValues {
 	carId: number;
-	userId: number;
 	carBrand: CarBrand;
 	model: CarModel;
 	yearOfIssue: number;
@@ -27,13 +25,16 @@ export interface AdFormValues {
 	condition: Condition;
 	price: number;
 	notes?: string;
+	photo: string;
 }
 
-export type AdDispatch = ThunkDispatch<AdState, undefined, AdAction>;
+export type AdDispatch = BaseDispatch<AdState, AdAction>;
 
 interface RouteParams {
 	id: string;
 }
+
+export type RouteProps = RouteComponentProps<RouteParams>;
 
 export type AdFormProps = PropsFromConnect & InjectedFormProps<AdFormValues, PropsFromConnect>;
 
@@ -43,16 +44,14 @@ export interface AdFormStateToProps {
 	brandsLoading: boolean;
 	modelsLoading: boolean;
 	modelDisabled: boolean;
-	isLoading: boolean;
 	initialValues: AdFormValues;
 }
 
 export interface AdFormDispatchToProps {
 	loadBrands: () => Promise<void>;
 	changeBrand: (brand: CarBrand) => Promise<void>;
-	loadCar: (carId: number, notFoundCallback: () => void) => Promise<void>;
+	loadCar: () => Promise<void>;
+	resetForm: () => void;
 }
 
-export type PropsFromConnect = RouteComponentProps<RouteParams> &
-	AdFormStateToProps &
-	AdFormDispatchToProps;
+export type PropsFromConnect = RouteProps & AdFormStateToProps & AdFormDispatchToProps;

@@ -1,6 +1,13 @@
 import { User } from '../data-interfaces/interfaces/user';
 import { Car } from '../data-interfaces/interfaces/car';
 import { UserData } from './interfaces';
+import { Ad } from '../data-interfaces/interfaces/ad';
+
+export enum LocalStorageKeys {
+	ads = 'ads',
+	cars = 'cars',
+	users = 'users',
+}
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -9,10 +16,10 @@ export const mapUserToUserData = (user: User): UserData => {
 	return loginInModelProps;
 };
 
-export enum LocalStorageKeys {
-	cars = 'cars',
-	users = 'users',
-}
+export const getLocalAds = (): Ad[] => {
+	const jsonAds = localStorage.getItem(LocalStorageKeys.ads);
+	return jsonAds ? JSON.parse(jsonAds) : [];
+};
 
 export const getLocalCars = (): Car[] => {
 	const jsonCars = localStorage.getItem(LocalStorageKeys.cars);

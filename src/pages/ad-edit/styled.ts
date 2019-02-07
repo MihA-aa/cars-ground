@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Form as FormComponent, Button } from 'antd';
+import { Form as AForm, Button } from 'antd';
 
-const Form = styled(FormComponent)`
+const Form = styled(AForm)`
 	&& {
 		max-width: 500px;
 		min-width: 250px;

@@ -1,37 +1,33 @@
-import { UserAuthState } from './reducer';
 import Cookies from 'js-cookie';
 import { message } from 'antd';
-import { ThunkDispatch } from 'redux-thunk';
 
+import { UserAuthState } from './reducer';
 import { fetchUserSession } from '../fake-server/fake-server';
-import {
-	AuthAction,
-	authenticationSuccess,
-	logoutAction,
-	pageLoadedAction,
-} from './action-creators';
+import { AuthAction, authenticationSuccess, logoutAction } from './action-creators';
+import { pageLoaded } from '../pages/page/action-creators';
+import { BaseDispatch } from '../helpers/base-dispatch';
 
 export const COOKIE_PATH = 'oauthToken';
 
-export type AuthDispatch = ThunkDispatch<UserAuthState, undefined, AuthAction>;
+export type AuthDispatch = BaseDispatch<UserAuthState, AuthAction>;
 
 export const initAuth = () => async (dispatch: AuthDispatch) => {
 	const oauthToken = Cookies.get(COOKIE_PATH);
 	if (oauthToken) {
 		await dispatch(fetchUserData(oauthToken));
 	} else {
-		dispatch(pageLoadedAction());
+		dispatch(pageLoaded());
 	}
 };
 
 export const fetchUserData = (token: string) => async (dispatch: AuthDispatch) => {
 	const result = await fetchUserSession(token);
 	if (result.errors) {
-		dispatch(pageLoadedAction());
 		message.error(result.errors.error);
 	} else {
 		dispatch(authenticationSuccess(result));
 	}
+	dispatch(pageLoaded());
 };
 
 export const logout = (callback: () => void) => (dispatch: AuthDispatch) => {

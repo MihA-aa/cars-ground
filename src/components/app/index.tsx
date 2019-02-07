@@ -6,8 +6,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { StoreState } from '../../store/root-reducer';
 import { AppStateProps, AppDispatchProps } from './interfaces';
 
-const mapStateToProps = ({ userAuth }: StoreState): AppStateProps => ({
-	isLoaded: userAuth.isLoaded,
+const mapStateToProps = ({ page }: StoreState): AppStateProps => ({
+	isLoading: page.pageIsLoading,
 });
 
 const mapDispatchToProps = (dispatch: AuthDispatch): AppDispatchProps => ({

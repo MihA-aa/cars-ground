@@ -1,11 +1,20 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
-import { carToModel } from './fake-data';
+import { carToModel, defaultPhoto } from './fake-data';
 import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
-import { sleep, mapUserToUserData, getUsers, getLocalCars, updateCar, insertCar } from './helpers';
+import {
+	sleep,
+	mapUserToUserData,
+	getUsers,
+	getLocalCars,
+	updateCar,
+	insertCar,
+	getLocalAds,
+} from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { LoginFormValues } from '../pages/login';
 import { Car } from '../data-interfaces/interfaces/car';
+import { Ad } from '../data-interfaces/interfaces/ad';
 
 export const loginValidate = async (values: LoginFormValues): Promise<LoginValidateResponse> => {
 	await sleep(1000);
@@ -37,7 +46,7 @@ export const getModels = async (brand: CarBrand): Promise<SelectOption[]> => {
 };
 
 export const getCar = async (carId: number): Promise<Car | undefined> => {
-	await sleep(1000);
+	await sleep(1);
 	return getLocalCars().find((car) => car.carId === carId);
 };
 
@@ -48,6 +57,16 @@ export const getCars = async (): Promise<Car[]> => {
 
 export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {
 	await sleep(1000);
-	car.carId ? updateCar(car) : insertCar(car);
+	car.carId ? updateCar({ ...car, photo: defaultPhoto }) : insertCar(car);
 	return {};
+};
+
+export const getAds = async (): Promise<Ad[]> => {
+	await sleep(1000);
+	return getLocalAds();
+};
+
+export const getAd = async (adId: number): Promise<Ad | undefined> => {
+	await sleep(1000);
+	return getLocalAds().find((ad) => ad.adId === adId);
 };

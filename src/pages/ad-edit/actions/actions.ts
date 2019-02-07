@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { change, SubmissionError } from 'redux-form';
+import { change, SubmissionError, reset } from 'redux-form';
 
 import { AdFormValues } from './../interfaces';
 import { fields, formName } from './../form-settings';
@@ -11,12 +11,12 @@ import {
 	brandsFetched,
 	getModelsRequest,
 	modelsFetched,
-	pageLoading,
-	pageLoaded,
 	carLoaded,
 } from './action-creators';
+import { contentLoading, contentLoaded } from '../../page/action-creators';
 
 export const loadBrands = () => async (dispatch: AdDispatch) => {
+	dispatch(reset('ad'));
 	dispatch(getBrandsRequest());
 	const result = await getBrands();
 	dispatch(brandsFetched(result));
@@ -36,7 +36,8 @@ export const loadModels = (brand: CarBrand) => async (dispatch: AdDispatch) => {
 export const loadCar = (carId: number, notFoundCallback: () => void) => async (
 	dispatch: AdDispatch,
 ) => {
-	dispatch(pageLoading());
+	isNaN(carId) && notFoundCallback();
+	dispatch(contentLoading());
 	const result = await getCar(carId);
 	if (result) {
 		dispatch(carLoaded(result));
@@ -45,13 +46,10 @@ export const loadCar = (carId: number, notFoundCallback: () => void) => async (
 	} else {
 		notFoundCallback();
 	}
-	dispatch(pageLoaded());
+	dispatch(contentLoaded());
 };
 
-export const submit = (values: AdFormValues, successCallback: () => void) => async (
-	dispatch: AdDispatch,
-) => {
-	dispatch(pageLoading());
+export const submit = async (values: AdFormValues, successCallback: () => void) => {
 	const result = await saveCar(values);
 	if (result.errors) {
 		message.error(result.errors.error);
@@ -60,5 +58,4 @@ export const submit = (values: AdFormValues, successCallback: () => void) => asy
 		message.success('Ad was successfully added');
 		successCallback();
 	}
-	dispatch(pageLoaded());
 };

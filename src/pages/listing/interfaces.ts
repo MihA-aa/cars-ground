@@ -1,17 +1,18 @@
-import { ThunkDispatch } from 'redux-thunk';
+import { BaseDispatch } from './../../helpers/base-dispatch';
 import { ListingAction } from './actions/action-creators';
+import { Ad } from '../../data-interfaces/interfaces/ad';
 
 export interface ListingState {
-	items: ItemData[];
+	items: Ad[];
 	isLoaded: boolean;
 }
 
-export type ListingDispatch = ThunkDispatch<ListingState, undefined, ListingAction>;
+export type ListingDispatch = BaseDispatch<ListingState, ListingAction>;
 
 export type ListingProps = ListingStateToProps & ListingDispatchToProps;
 
 export interface ListingStateToProps {
-	items: ItemData[];
+	items: Ad[];
 	isLoaded: boolean;
 }
 
@@ -25,8 +26,8 @@ export interface ItemData {
 	avatar: string;
 	description?: string;
 	content: string;
-	starsCount: number;
-	viewsCount: number;
-	commentsCount: number;
+	stars: number;
+	views: number;
+	comments: number;
 	photo: string;
 }
