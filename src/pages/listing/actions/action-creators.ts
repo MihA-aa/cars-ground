@@ -8,10 +8,25 @@ const adsFetched: ActionCreator<AdsFetchedAction> = (items: Ad[]) => ({
 	payload: { items },
 });
 
+const reset: ActionCreator<ResetAction> = () => ({
+	type: ListingActionTypes.RESET,
+});
+
+const setTotal: ActionCreator<SetTotalAction> = (total: number) => ({
+	type: ListingActionTypes.SET_TOTAL,
+	payload: { total },
+});
+
 interface AdsFetchedAction extends Action<ListingActionTypes.ADS_FETCHED> {
 	payload: { items: Ad[] };
 }
 
-export type ListingAction = AdsFetchedAction;
+interface ResetAction extends Action<ListingActionTypes.RESET> {}
 
-export { adsFetched };
+interface SetTotalAction extends Action<ListingActionTypes.SET_TOTAL> {
+	payload: { total: number };
+}
+
+export type ListingAction = AdsFetchedAction | ResetAction | SetTotalAction;
+
+export { adsFetched, reset, setTotal };

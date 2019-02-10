@@ -56,6 +56,18 @@ export const cars: Car[] = [
 		notes: 'Top car in your life.',
 		photo: defaultPhoto,
 	},
+	{
+		carId: 4,
+		carBrand: CarBrand.Ford,
+		model: CarModel.Galaxy,
+		yearOfIssue: 2001,
+		bodyType: BodyType.Sedan,
+		modification: 'Modification TXLR',
+		condition: Condition.ForParts,
+		price: 4000,
+		notes: 'Top',
+		photo: defaultPhoto,
+	},
 ];
 
 export const metaData: MetaData[] = [
@@ -77,6 +89,12 @@ export const metaData: MetaData[] = [
 		views: 427,
 		comments: 0,
 	},
+	{
+		avatar: defaultAvatar,
+		stars: 83,
+		views: 93,
+		comments: 5,
+	},
 ];
 
 export const ads: Ad[] = [
@@ -97,6 +115,12 @@ export const ads: Ad[] = [
 		userId: 2,
 		car: cars[2],
 		meta: metaData[2],
+	},
+	{
+		adId: 4,
+		userId: 2,
+		car: cars[3],
+		meta: metaData[3],
 	},
 ];
 
@@ -143,6 +167,8 @@ export const emptyAd: Ad = {
 		comments: 0,
 	},
 };
+
+export const defaultListing = [emptyAd, emptyAd, emptyAd];
 
 export const years = [
 	2019,

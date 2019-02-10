@@ -45,7 +45,6 @@ export interface AdFormStateToProps {
 	modelsLoading: boolean;
 	modelDisabled: boolean;
 	initialValues: AdFormValues;
-	userId: number;
 }
 
 export interface AdFormDispatchToProps {

@@ -1,11 +1,12 @@
 import React from 'react';
+import { Icon } from 'antd';
 
 import { routePaths } from '../../../helpers/route-paths';
 import { Styled as CommonStyled } from '../../../styles/styled';
 import { Styled } from '../styled';
 import { HeaderProps } from './interfaces';
 
-export const Header: React.FC<HeaderProps> = ({ isAuthenticated, userName, logout }) => (
+export const Header: React.FC<HeaderProps> = ({ isAuthenticated, userName, logout, isAdmin }) => (
 	<Styled.Header>
 		<h2>
 			<CommonStyled.Link to={routePaths.home}>Cars Ground</CommonStyled.Link>
@@ -17,7 +18,10 @@ export const Header: React.FC<HeaderProps> = ({ isAuthenticated, userName, logou
 						<Styled.RightMenuLink to={routePaths.adCreate} style={{ marginRight: 30 }}>
 							Post Ad
 						</Styled.RightMenuLink>
-						<Styled.RightMenuLink to={'#'}>{userName}</Styled.RightMenuLink>
+						<Styled.RightMenuLink to={'#'}>
+							<Icon type='user' /> {userName}
+							{isAdmin && ' (Admin)'}
+						</Styled.RightMenuLink>
 						<Styled.RightMenuLink to={'#'} onClick={logout}>
 							Logout
 						</Styled.RightMenuLink>

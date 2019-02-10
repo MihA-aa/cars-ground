@@ -9,6 +9,7 @@ import { routePaths } from '../../../helpers/route-paths';
 
 const mapStateToProps = ({ userAuth }: StoreState): HeaderStateProps => ({
 	isAuthenticated: !!userAuth.userId,
+	isAdmin: userAuth.isAdmin,
 	userName: `${userAuth.firstName} ${userAuth.secondName}`,
 });
 

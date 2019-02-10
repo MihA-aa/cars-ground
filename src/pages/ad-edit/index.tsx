@@ -17,14 +17,13 @@ import { formName } from './form-settings';
 import { routePaths } from '../../helpers/route-paths';
 import { resetInitialValues } from './actions/action-creators';
 
-const mapStateToProps = ({ ad, userAuth }: StoreState): AdFormStateToProps => ({
+const mapStateToProps = ({ ad }: StoreState): AdFormStateToProps => ({
 	brandOptions: ad.brandOptions,
 	modelOptions: ad.modelOptions,
 	brandsLoading: ad.brandsLoading,
 	modelsLoading: ad.modelsLoading,
 	modelDisabled: ad.modelDisabled,
 	initialValues: ad.initialValues!,
-	userId: userAuth.userId!,
 });
 
 const mapDispatchToProps = (dispatch: AdDispatch, props: RouteProps): AdFormDispatchToProps => {
@@ -42,7 +41,7 @@ const mapDispatchToProps = (dispatch: AdDispatch, props: RouteProps): AdFormDisp
 const AdForm = reduxForm<AdFormValues, PropsFromConnect>({
 	form: formName,
 	onSubmit: async (values, dispatch, props) => {
-		return submit(values, props.userId, () => props.history.push(routePaths.home));
+		return submit(values, () => props.history.push(routePaths.home));
 	},
 	enableReinitialize: false,
 })(AdFormComponent);

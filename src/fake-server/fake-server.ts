@@ -1,21 +1,7 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
 import { carToModel, defaultPhoto, defaultMetadata } from './fake-data';
 import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
-import {
-	sleep,
-	mapUserToUserData,
-	getUsers,
-	getLocalCars,
-	updateCar,
-	insertCar,
-	getLocalAds,
-	updateAdCar,
-	generateCarId,
-	generateAdId,
-	insertAd,
-	insertAds,
-	insertCars,
-} from './helpers';
+import { sleep, cars, ads, users } from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { LoginFormValues } from '../pages/login';
@@ -24,9 +10,9 @@ import { Ad } from '../data-interfaces/interfaces/ad';
 
 export const loginValidate = async (values: LoginFormValues): Promise<LoginValidateResponse> => {
 	await sleep(1000);
-	const user = getUsers().find(
-		(u) => u.nickname === values.userName && u.password === values.password,
-	);
+	const user = users
+		.getUsers()
+		.find((u) => u.nickname === values.userName && u.password === values.password);
 	const result = user
 		? { token: user.token }
 		: { errors: { error: 'Login failed; Invalid User name or Password' } };
@@ -35,8 +21,10 @@ export const loginValidate = async (values: LoginFormValues): Promise<LoginValid
 
 export const fetchUserSession = async (token: string): Promise<UserSessionResponse> => {
 	await sleep(1000);
-	const user = getUsers().find((u) => u.token === token);
-	const result = user ? mapUserToUserData(user) : { errors: { error: 'Authorization Failed' } };
+	const user = users.getUsers().find((u) => u.token === token);
+	const result = user
+		? users.mapUserToUserData(user)
+		: { errors: { error: 'Authorization Failed' } };
 	return result as UserSessionResponse;
 };
 
@@ -51,50 +39,66 @@ export const getModels = async (brand: CarBrand): Promise<SelectOption[]> => {
 	return models && models.map((m) => ({ name: CarModel[m], value: m }));
 };
 
-export const getCar = async (carId: number): Promise<Car | undefined> => {
+export const getCar = async (carId: number): Promise<Car | false | undefined> => {
 	await sleep(1);
-	return getLocalCars().find((car) => car.carId === carId);
+	const ad = ads.getLocalAds().find((ad) => ad.car.carId === carId);
+	const user = users.getUser();
+	const userId = ad && user && (ad.userId === user.userId || user.isAdmin);
+	return userId && cars.getLocalCars().find((car) => car.carId === carId);
 };
 
 export const getCars = async (): Promise<Car[]> => {
 	await sleep(1000);
-	return getLocalCars();
+	return cars.getLocalCars();
 };
 
-export const saveCar = async (car: Car, userId: number): Promise<ApiResponse<{}>> => {
+export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {
 	await sleep(1000);
 	if (car.carId) {
-		updateCar(car);
-		updateAdCar(car);
+		cars.updateCar(car);
+		ads.updateAdCar(car);
 	} else {
-		car = { carId: generateCarId(), ...car, photo: defaultPhoto };
-		const ad: Ad = { userId, adId: generateAdId(), car, meta: defaultMetadata };
-		insertCar(car);
-		insertAd(ad);
+		car = { carId: cars.generateCarId(), ...car, photo: defaultPhoto };
+		const ad: Ad = {
+			userId: users.getUserId()!,
+			adId: ads.generateAdId(),
+			car,
+			meta: defaultMetadata,
+		};
+		cars.insertCar(car);
+		ads.insertAd(ad);
 	}
 	return {};
 };
 
 export const removeCar = async (carId: number): Promise<ApiResponse<{}>> => {
 	await sleep(1000);
-	const newAds = getLocalAds().filter((ad) => ad.car.carId !== carId);
-	const newCars = getLocalCars().filter((car) => car.carId !== carId);
-	insertAds(newAds);
-	insertCars(newCars);
+	const newAds = ads.getLocalAds().filter((ad) => ad.car.carId !== carId);
+	const newCars = cars.getLocalCars().filter((car) => car.carId !== carId);
+	ads.insertAds(newAds);
+	cars.insertCars(newCars);
 	return {};
 };
 
-export const getAds = async (): Promise<Ad[]> => {
+export const getAds = async (page: number, pageSize: number | undefined): Promise<Ad[]> => {
 	await sleep(1000);
-	return getLocalAds();
+	return pageSize ? ads.getLocalAds().splice((page - 1) * pageSize, page * pageSize) : [];
+};
+
+export const getAdsCount = async (): Promise<number> => {
+	await sleep(10);
+	return ads.getLocalAds().length;
 };
 
 export const getAd = async (adId: number): Promise<Ad | undefined> => {
 	await sleep(1000);
-	return getLocalAds().find((ad) => ad.adId === adId);
+	return ads.getLocalAds().find((ad) => ad.adId === adId);
 };
 
-export const isOwner = async (adId: number, userId: number): Promise<boolean> => {
+export const isOwner = async (adId: number): Promise<boolean> => {
 	await sleep(10);
-	return !!getLocalAds().find((ad) => ad.adId === adId && ad.userId === userId);
+	const user = users.getUser();
+	return !!ads
+		.getLocalAds()
+		.find((ad) => ad.adId === adId && !!user && (user.isAdmin || ad.userId === user.userId));
 };

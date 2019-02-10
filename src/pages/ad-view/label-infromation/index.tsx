@@ -1,4 +1,5 @@
 import React from 'react';
+import { Styled } from './styled';
 
 interface LabelInformationProps {
 	label: string;
@@ -6,10 +7,7 @@ interface LabelInformationProps {
 }
 
 export const LabelInformation: React.FC<LabelInformationProps> = ({ label, value }) => (
-	<div style={{ marginBottom: '10px' }}>
-		{label}{' '}
-		<span style={{ color: 'black', right: '50px', display: 'inline-block', position: 'absolute' }}>
-			{value}
-		</span>
-	</div>
+	<Styled.LabelInformation>
+		{label} <Styled.Value>{value}</Styled.Value>
+	</Styled.LabelInformation>
 );

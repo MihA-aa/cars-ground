@@ -2,23 +2,18 @@ import { ViewDispatch } from './../interfaces';
 import { getAd, isOwner, removeCar } from '../../../fake-server/fake-server';
 import { adFetched, setIsOwner, setRemoving } from './action-creators';
 import { contentLoading, contentLoaded } from '../../page/action-creators';
-import { StoreState } from '../../../store/root-reducer';
 import { message } from 'antd';
 import { SubmissionError } from 'redux-form';
 
 export const loadAd = (adId: number, notFoundCallback: () => void) => async (
 	dispatch: ViewDispatch,
-	getState: () => StoreState,
 ) => {
 	isNaN(adId) && notFoundCallback();
 	dispatch(contentLoading());
 	const result = await getAd(adId);
 	if (result) {
-		const state = getState();
-		if (state.userAuth.userId) {
-			const isOwnerResult = await isOwner(adId, state.userAuth.userId);
-			dispatch(setIsOwner(isOwnerResult));
-		}
+		const isOwnerResult = await isOwner(adId);
+		dispatch(setIsOwner(isOwnerResult));
 		dispatch(adFetched(result));
 	} else {
 		notFoundCallback();
