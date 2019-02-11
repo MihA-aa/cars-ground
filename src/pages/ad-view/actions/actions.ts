@@ -1,9 +1,15 @@
 import { ViewDispatch } from './../interfaces';
-import { getAd, isOwner, removeCar } from '../../../fake-server/fake-server';
-import { adFetched, setIsOwner, setRemoving } from './action-creators';
+import {
+	getAd,
+	isOwner,
+	removeCar,
+	commentOn as commentOnCall,
+} from '../../../fake-server/fake-server';
+import { adFetched, setIsOwner, setRemoving, setCommenting, pushComment } from './action-creators';
 import { contentLoading, contentLoaded } from '../../page/action-creators';
 import { message } from 'antd';
 import { SubmissionError } from 'redux-form';
+import { StoreState } from '../../../store/root-reducer';
 
 export const loadAd = (adId: number, notFoundCallback: () => void) => async (
 	dispatch: ViewDispatch,
@@ -34,4 +40,20 @@ export const remove = (carId: number, successCallback: () => void) => async (
 		successCallback();
 	}
 	dispatch(setRemoving(false));
+};
+
+export const commentOn = (text: string) => async (
+	dispatch: ViewDispatch,
+	getState: () => StoreState,
+) => {
+	dispatch(setCommenting(true));
+	const state = getState();
+	const result = await commentOnCall({
+		text,
+		adId: state.view.data.adId,
+		userId: state.userAuth.userId!,
+		dateTime: new Date().toLocaleString(),
+	});
+	dispatch(pushComment(result));
+	dispatch(setCommenting(false));
 };

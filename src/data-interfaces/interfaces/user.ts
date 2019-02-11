@@ -6,4 +6,5 @@ export interface User {
 	secondName: string;
 	password: string;
 	isAdmin: boolean;
+	avatar: string;
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form as AForm, Button } from 'antd';
+import { Form as AForm, Button, Select } from 'antd';
 
 const Form = styled(AForm)`
 	&& {
@@ -15,7 +15,14 @@ const SubmitButton = styled<any>(Button).attrs({ type: 'primary', htmlType: 'sub
 	}
 `;
 
+const CurrenciesPostfix = styled<any>(Select)`
+	&& {
+		width: 80px;
+	}
+`;
+
 export const Styled = {
 	Form,
 	SubmitButton,
+	CurrenciesPostfix,
 };

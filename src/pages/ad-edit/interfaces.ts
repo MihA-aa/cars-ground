@@ -56,3 +56,12 @@ export interface AdFormDispatchToProps {
 }
 
 export type PropsFromConnect = RouteProps & AdFormStateToProps & AdFormDispatchToProps;
+
+export interface AdFormCommonFieldProps {
+	label: string;
+	name: string;
+	loading?: boolean;
+	disabled?: boolean;
+	options: SelectOption[];
+	onChangeCallback?: (event: any) => void;
+}

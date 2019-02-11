@@ -2,6 +2,7 @@ import { Ad } from './../data-interfaces/interfaces/ad';
 import { CarBrand, CarModel, BodyType, Condition } from '../data-interfaces/enums';
 import { User } from '../data-interfaces/interfaces/user';
 import { Car } from '../data-interfaces/interfaces/car';
+import { Comment } from '../data-interfaces/interfaces/comment';
 import { MetaData } from '../data-interfaces/interfaces/meta-data';
 
 export const carToModel = new Map<CarBrand, CarModel[]>([
@@ -16,7 +17,7 @@ export const defaultMetadata: MetaData = {
 	avatar: defaultAvatar,
 	stars: 0,
 	views: 0,
-	comments: 0,
+	comments: [],
 };
 
 export const cars: Car[] = [
@@ -70,60 +71,6 @@ export const cars: Car[] = [
 	},
 ];
 
-export const metaData: MetaData[] = [
-	{
-		avatar: defaultAvatar,
-		stars: 242,
-		views: 1835,
-		comments: 5,
-	},
-	{
-		avatar: defaultAvatar,
-		stars: 351,
-		views: 5123,
-		comments: 14,
-	},
-	{
-		avatar: defaultAvatar,
-		stars: 32,
-		views: 427,
-		comments: 0,
-	},
-	{
-		avatar: defaultAvatar,
-		stars: 83,
-		views: 93,
-		comments: 5,
-	},
-];
-
-export const ads: Ad[] = [
-	{
-		adId: 1,
-		userId: 1,
-		car: cars[0],
-		meta: metaData[0],
-	},
-	{
-		adId: 2,
-		userId: 2,
-		car: cars[1],
-		meta: metaData[1],
-	},
-	{
-		adId: 3,
-		userId: 2,
-		car: cars[2],
-		meta: metaData[2],
-	},
-	{
-		adId: 4,
-		userId: 2,
-		car: cars[3],
-		meta: metaData[3],
-	},
-];
-
 export const users: User[] = [
 	{
 		token: '5wx4ite30latcrahwfi2mi01',
@@ -133,6 +80,7 @@ export const users: User[] = [
 		secondName: 'Ivanov',
 		password: 'Password',
 		isAdmin: false,
+		avatar: defaultAvatar,
 	},
 	{
 		token: 'ahx4ite3iw5w0ltcrmi01f2a',
@@ -142,12 +90,109 @@ export const users: User[] = [
 		secondName: 'Ermolaev',
 		password: 'Password',
 		isAdmin: true,
+		avatar: defaultAvatar,
+	},
+];
+
+export const comments: Comment[] = [
+	{
+		commentId: 1,
+		datetime: '11.02.2019, 12:08:19',
+		adId: 1,
+		author: `${users[1].firstName} ${users[1].secondName}`,
+		text: 'What the beautiful car',
+		avatar: defaultAvatar,
+	},
+	{
+		commentId: 2,
+		datetime: '11.05.2019, 16:28:53',
+		adId: 1,
+		author: `${users[0].firstName} ${users[0].secondName}`,
+		text: 'Yes, this is my car',
+		avatar: defaultAvatar,
+	},
+	{
+		commentId: 3,
+		datetime: '11.06.2019, 02:01:49',
+		adId: 1,
+		author: `${users[1].firstName} ${users[1].secondName}`,
+		text: 'Shut up and take my money',
+		avatar: defaultAvatar,
+	},
+];
+
+export const metaData: MetaData[] = [
+	{
+		avatar: defaultAvatar,
+		stars: 242,
+		views: 1835,
+		comments: comments,
+	},
+	{
+		avatar: defaultAvatar,
+		stars: 351,
+		views: 5123,
+		comments: [],
+	},
+	{
+		avatar: defaultAvatar,
+		stars: 32,
+		views: 427,
+		comments: [],
+	},
+	{
+		avatar: defaultAvatar,
+		stars: 83,
+		views: 93,
+		comments: [],
+	},
+];
+
+export const ads: Ad[] = [
+	{
+		adId: 1,
+		user: {
+			userId: 1,
+			avatar: defaultAvatar,
+		},
+		car: cars[0],
+		meta: metaData[0],
+	},
+	{
+		adId: 2,
+		user: {
+			userId: 2,
+			avatar: defaultAvatar,
+		},
+		car: cars[1],
+		meta: metaData[1],
+	},
+	{
+		adId: 3,
+		user: {
+			userId: 2,
+			avatar: defaultAvatar,
+		},
+		car: cars[2],
+		meta: metaData[2],
+	},
+	{
+		adId: 4,
+		user: {
+			userId: 2,
+			avatar: defaultAvatar,
+		},
+		car: cars[3],
+		meta: metaData[3],
 	},
 ];
 
 export const emptyAd: Ad = {
 	adId: 0,
-	userId: 0,
+	user: {
+		userId: 0,
+		avatar: defaultAvatar,
+	},
 	car: {
 		carId: 0,
 		carBrand: 0,
@@ -164,7 +209,7 @@ export const emptyAd: Ad = {
 		avatar: 'isLoading',
 		stars: 0,
 		views: 0,
-		comments: 0,
+		comments: [],
 	},
 };
 

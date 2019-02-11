@@ -10,6 +10,13 @@ export interface UserData {
 	isAdmin: boolean;
 }
 
+export interface CommentModel {
+	userId: number;
+	adId: number;
+	text: string;
+	dateTime: string;
+}
+
 export interface LoginValidateModel {
 	token: string;
 }

@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: ViewDispatch, props: RootProps): AdViewDis
 	};
 };
 
-export const AdView = connect<AdViewStateToProps, AdViewDispatchToProps, RootProps, StoreState>(
+const AdView = connect<AdViewStateToProps, AdViewDispatchToProps, RootProps, StoreState>(
 	mapStateToProps,
 	mapDispatchToProps,
 )(AdViewComponent);

@@ -1,8 +1,8 @@
-import { BaseDispatch } from './../../helpers/base-dispatch';
+import { RouteComponentProps } from 'react-router-dom';
 
+import { BaseDispatch } from './../../helpers/base-dispatch';
 import { ViewAction } from './actions/action-creators';
 import { Ad } from '../../data-interfaces/interfaces/ad';
-import { RouteComponentProps } from 'react-router-dom';
 
 export type ViewDispatch = BaseDispatch<ViewAction>;
 
@@ -19,6 +19,7 @@ export interface ViewState {
 	data: Ad;
 	isOwner: boolean;
 	removing: boolean;
+	commenting: boolean;
 }
 
 interface RouteParams {

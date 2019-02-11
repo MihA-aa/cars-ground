@@ -7,6 +7,7 @@ const initialState: ViewState = {
 	data: emptyAd,
 	isOwner: false,
 	removing: false,
+	commenting: false,
 };
 
 export const viewReducer = (state: ViewState = initialState, action: ViewAction): ViewState => {
@@ -19,6 +20,21 @@ export const viewReducer = (state: ViewState = initialState, action: ViewAction)
 
 		case ViewActionTypes.SET_REMOVING:
 			return { ...state, removing: action.payload.removing };
+
+		case ViewActionTypes.SET_COMMENTING:
+			return { ...state, commenting: action.payload.commenting };
+
+		case ViewActionTypes.PUSH_COMMENT:
+			return {
+				...state,
+				data: {
+					...state.data,
+					meta: {
+						...state.data.meta,
+						comments: [...state.data.meta.comments, action.payload.comment],
+					},
+				},
+			};
 
 		default:
 			return state;

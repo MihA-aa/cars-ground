@@ -1,26 +1,17 @@
 import React from 'react';
-import { Select as ASelect } from 'antd';
 import { Field } from 'redux-form';
 
 import { Select, RadioGroup } from '../../helpers/fields';
 import { required } from '../../helpers/validation-rules';
-import { SelectOption } from '../../data-interfaces/interfaces/select-option';
+import { AdFormCommonFieldProps } from './interfaces';
 import { formItemLayout, options } from './form-settings';
 import { optionsFromSelectOptions, radiosFromSelectOptions } from '../../helpers/form-helpers';
-
-interface AdFormCommonFieldProps {
-	label: string;
-	name: string;
-	loading?: boolean;
-	disabled?: boolean;
-	options: SelectOption[];
-	onChangeCallback?: (event: any) => void;
-}
+import { Styled } from './styled';
 
 export const currenciesPostfix = () => (
-	<ASelect defaultValue={options.currencies[0].value} style={{ width: 80 }}>
+	<Styled.CurrenciesPostfix defaultValue={options.currencies[0].value}>
 		{optionsFromSelectOptions(options.currencies)}
-	</ASelect>
+	</Styled.CurrenciesPostfix>
 );
 
 export const AdFormSelectField: React.FC<AdFormCommonFieldProps> = (props) => (

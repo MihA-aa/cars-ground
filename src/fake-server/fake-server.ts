@@ -1,12 +1,18 @@
 import { SelectOption } from './../data-interfaces/interfaces/select-option';
-import { carToModel, defaultPhoto, defaultMetadata } from './fake-data';
-import { UserSessionResponse, ApiResponse, LoginValidateResponse } from './interfaces';
+import { carToModel, defaultPhoto, defaultMetadata, defaultAvatar } from './fake-data';
+import {
+	UserSessionResponse,
+	ApiResponse,
+	LoginValidateResponse,
+	CommentModel,
+} from './interfaces';
 import { sleep, cars, ads, users } from './helpers';
 import { mapEnumToSelectOptions } from '../helpers/mappers';
 import { CarBrand, CarModel } from '../data-interfaces/enums';
 import { LoginFormValues } from '../pages/login';
 import { Car } from '../data-interfaces/interfaces/car';
 import { Ad } from '../data-interfaces/interfaces/ad';
+import { Comment } from '../data-interfaces/interfaces/comment';
 
 export const loginValidate = async (values: LoginFormValues): Promise<LoginValidateResponse> => {
 	await sleep(1000);
@@ -43,7 +49,7 @@ export const getCar = async (carId: number): Promise<Car | false | undefined> =>
 	await sleep(1);
 	const ad = ads.getLocalAds().find((ad) => ad.car.carId === carId);
 	const user = users.getUser();
-	const userId = ad && user && (ad.userId === user.userId || user.isAdmin);
+	const userId = ad && user && (ad.user.userId === user.userId || user.isAdmin);
 	return userId && cars.getLocalCars().find((car) => car.carId === carId);
 };
 
@@ -60,7 +66,7 @@ export const saveCar = async (car: Car): Promise<ApiResponse<{}>> => {
 	} else {
 		car = { carId: cars.generateCarId(), ...car, photo: defaultPhoto };
 		const ad: Ad = {
-			userId: users.getUserId()!,
+			user: { userId: users.getUserId()!, avatar: defaultAvatar },
 			adId: ads.generateAdId(),
 			car,
 			meta: defaultMetadata,
@@ -100,5 +106,18 @@ export const isOwner = async (adId: number): Promise<boolean> => {
 	const user = users.getUser();
 	return !!ads
 		.getLocalAds()
-		.find((ad) => ad.adId === adId && !!user && (user.isAdmin || ad.userId === user.userId));
+		.find((ad) => ad.adId === adId && !!user && (user.isAdmin || ad.user.userId === user.userId));
+};
+
+export const commentOn = async (comment: CommentModel): Promise<ApiResponse<Comment>> => {
+	await sleep(1000);
+
+	return {
+		commentId: 23,
+		adId: 2,
+		author: 'some',
+		avatar: defaultAvatar,
+		text: 'text',
+		datetime: new Date().toLocaleString(),
+	};
 };

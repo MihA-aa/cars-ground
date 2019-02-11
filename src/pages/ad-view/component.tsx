@@ -5,6 +5,7 @@ import { icons } from '../../components/icons';
 import { AdViewProps } from './interfaces';
 import { LabelInformation } from './label-infromation';
 import { CarModel, CarBrand, BodyType, Condition } from '../../data-interfaces/enums';
+import { Comments } from './comments';
 import { Buttons } from './buttons';
 
 import { Styled } from './styled';
@@ -31,7 +32,7 @@ export class AdView extends React.Component<AdViewProps> {
 					{CarBrand[car.carBrand]} {CarModel[car.model]}, {car.yearOfIssue}
 					{isOwner && <Buttons carId={car.carId} />}
 				</h1>
-				<Styled.Item actions={icons(meta.stars, meta.views, meta.comments)} />
+				<Styled.Item actions={icons(meta.stars, meta.views, meta.comments.length)} />
 				<Styled.Row>
 					<Col span={8}>
 						<Styled.Information>
@@ -47,6 +48,7 @@ export class AdView extends React.Component<AdViewProps> {
 						<img width={600} alt='logo' src={car.photo} />
 					</Col>
 				</Styled.Row>
+				<Comments />
 			</div>
 		);
 	};
