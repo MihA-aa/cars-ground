@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import { PageAction } from './action-creators';
 import { PageActionTypes } from './action-types';
 
@@ -6,24 +8,27 @@ export interface PageState {
 	contentIsLoading: boolean;
 }
 
-const initialState: PageState = {
+const initialState = {
 	pageIsLoading: true,
 	contentIsLoading: false,
 };
 
-export const pageReducer = (state: PageState = initialState, action: PageAction): PageState => {
+export const pageReducer = (
+	state = Map(initialState),
+	action: PageAction,
+): Map<string, boolean> => {
 	switch (action.type) {
 		case PageActionTypes.PAGE_LOADING:
-			return { ...state, pageIsLoading: true };
+			return state.set('pageIsLoading', true);
 
 		case PageActionTypes.PAGE_LOADED:
-			return { ...state, pageIsLoading: false };
+			return state.set('pageIsLoading', false);
 
 		case PageActionTypes.CONTENT_LOADING:
-			return { ...state, contentIsLoading: true };
+			return state.set('contentIsLoading', true);
 
 		case PageActionTypes.CONTENT_LOADED:
-			return { ...state, contentIsLoading: false };
+			return state.set('contentIsLoading', false);
 
 		default:
 			return state;

@@ -1,8 +1,7 @@
-import { ViewState } from './../pages/ad-view/interfaces';
-
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 import { reducer as formReducer, FormStateMap } from 'redux-form';
 
+import { ViewState } from './../pages/ad-view/interfaces';
 import { UserAuthState, userAuthReducer } from '../auth/reducer';
 import { adReducer } from '../pages/ad-edit/reducer';
 import { AdState } from '../pages/ad-edit/interfaces';
@@ -16,8 +15,8 @@ export interface StoreState {
 	userAuth: UserAuthState;
 	ad: AdState;
 	listing: ListingState;
-	view: ViewState;
-	page: PageState;
+	view: any;
+	page: Map<string, boolean>; //StrictImmutable<PageState>;
 }
 
 const store = {

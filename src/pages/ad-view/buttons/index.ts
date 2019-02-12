@@ -9,7 +9,7 @@ import { Buttons as ButtonsComponent } from './component';
 import { ButtonsStateToProps, ButtonsOwnProps, ButtonsDispatchToProps } from './interfaces';
 
 const mapStateToProps = ({ view }: StoreState): ButtonsStateToProps => ({
-	removing: view.removing,
+	removing: view.get('removing'),
 });
 
 const mapDispatchToProps = (

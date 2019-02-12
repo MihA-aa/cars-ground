@@ -50,7 +50,7 @@ export const commentOn = (text: string) => async (
 	const state = getState();
 	const comment = {
 		text,
-		adId: state.view.data.adId,
+		adId: state.getIn(['view', 'data', 'adId']),
 		userId: state.userAuth.userId!,
 		dateTime: new Date().toLocaleString(),
 	};

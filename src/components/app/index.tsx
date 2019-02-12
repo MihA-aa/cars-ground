@@ -7,7 +7,7 @@ import { StoreState } from '../../store/root-reducer';
 import { AppStateProps, AppDispatchProps } from './interfaces';
 
 const mapStateToProps = ({ page }: StoreState): AppStateProps => ({
-	isLoading: page.pageIsLoading,
+	isLoading: page.get('pageIsLoading')!,
 });
 
 const mapDispatchToProps = (dispatch: AuthDispatch): AppDispatchProps => ({

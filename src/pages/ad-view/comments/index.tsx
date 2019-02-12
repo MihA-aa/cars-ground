@@ -20,7 +20,10 @@ const mapCommentToCommentData = (comment: Comment): CommentData => {
 
 const mapStateToProps = ({ view }: StoreState): CommentsStateToProps => ({
 	avatar: defaultAvatar,
-	comments: view.data.meta.comments.map((x) => mapCommentToCommentData(x)),
+	comments: view
+		.getIn('data', 'meta', 'comments')
+		.toJS()
+		.map((x: any) => mapCommentToCommentData(x)),
 	submitting: view.commenting,
 });
 

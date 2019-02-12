@@ -7,7 +7,7 @@ import { Layout as LayoutComponent } from './component';
 export interface HeaderProps extends LoaderProps {}
 
 const mapStateToProps = ({ page }: StoreState): HeaderProps => ({
-	isLoading: page.contentIsLoading,
+	isLoading: page.get('contentIsLoading')!,
 });
 
 export const Layout = connect<LoaderProps, null, null, StoreState>(mapStateToProps)(
