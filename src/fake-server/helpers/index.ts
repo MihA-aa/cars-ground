@@ -1,6 +1,14 @@
-import { getLocalAds, generateAdId, insertAds, insertAd, updateAdCar } from './ad-helpers';
+import {
+	getLocalAds,
+	generateAdId,
+	insertAds,
+	insertAd,
+	updateAdCar,
+	mapCommentModelToComment,
+	pushComment,
+} from './ad-helpers';
 import { getLocalCars, insertCars, insertCar, updateCar, generateCarId } from './car-helpers';
-import { getUsers, mapUserToUserData, getUser, getUserId } from './user-helpers';
+import { getUsers, mapUserToUserData, getUser, getUserId, getUserById } from './user-helpers';
 
 export enum LocalStorageKeys {
 	ads = 'ads',
@@ -16,6 +24,8 @@ export const ads = {
 	insertAd,
 	updateAdCar,
 	generateAdId,
+	pushComment,
+	mapCommentModelToComment,
 };
 
 export const cars = {
@@ -31,4 +41,5 @@ export const users = {
 	getUsers,
 	getUser,
 	getUserId,
+	getUserById,
 };

@@ -14,7 +14,7 @@ const mapCommentToCommentData = (comment: Comment): CommentData => {
 		author: comment.author,
 		avatar: comment.avatar,
 		text: comment.text,
-		datetime: comment.datetime,
+		datetime: comment.dateTime,
 	};
 };
 

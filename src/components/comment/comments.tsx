@@ -10,8 +10,11 @@ export class Comments extends React.Component<CommentsProps> {
 		value: '',
 	};
 
-	handleSubmit = () => {
-		this.state.value && this.props.submit(this.state.value);
+	handleSubmit = async () => {
+		this.state.value && (await this.props.submit(this.state.value));
+		this.setState({
+			value: '',
+		});
 	};
 
 	handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

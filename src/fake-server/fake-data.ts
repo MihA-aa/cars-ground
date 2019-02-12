@@ -96,24 +96,21 @@ export const users: User[] = [
 
 export const comments: Comment[] = [
 	{
-		commentId: 1,
-		datetime: '11.02.2019, 12:08:19',
+		dateTime: '11.02.2019, 12:08:19',
 		adId: 1,
 		author: `${users[1].firstName} ${users[1].secondName}`,
 		text: 'What the beautiful car',
 		avatar: defaultAvatar,
 	},
 	{
-		commentId: 2,
-		datetime: '11.05.2019, 16:28:53',
+		dateTime: '11.05.2019, 16:28:53',
 		adId: 1,
 		author: `${users[0].firstName} ${users[0].secondName}`,
 		text: 'Yes, this is my car',
 		avatar: defaultAvatar,
 	},
 	{
-		commentId: 3,
-		datetime: '11.06.2019, 02:01:49',
+		dateTime: '11.06.2019, 02:01:49',
 		adId: 1,
 		author: `${users[1].firstName} ${users[1].secondName}`,
 		text: 'Shut up and take my money',

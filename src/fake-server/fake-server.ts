@@ -109,15 +109,9 @@ export const isOwner = async (adId: number): Promise<boolean> => {
 		.find((ad) => ad.adId === adId && !!user && (user.isAdmin || ad.user.userId === user.userId));
 };
 
-export const commentOn = async (comment: CommentModel): Promise<ApiResponse<Comment>> => {
+export const commentOn = async (commentModel: CommentModel): Promise<ApiResponse<Comment>> => {
 	await sleep(1000);
-
-	return {
-		commentId: 23,
-		adId: 2,
-		author: 'some',
-		avatar: defaultAvatar,
-		text: 'text',
-		datetime: new Date().toLocaleString(),
-	};
+	const comment = ads.mapCommentModelToComment(commentModel);
+	ads.pushComment(comment);
+	return comment;
 };

@@ -25,3 +25,8 @@ export const getUserId = (): number | undefined => {
 	const user = getUser();
 	return user && user.userId;
 };
+
+export const getUserById = (userId: number): User | undefined => {
+	const users = getUsers();
+	return users.find(user => user.userId === userId);
+};

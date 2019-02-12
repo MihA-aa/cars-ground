@@ -48,12 +48,13 @@ export const commentOn = (text: string) => async (
 ) => {
 	dispatch(setCommenting(true));
 	const state = getState();
-	const result = await commentOnCall({
+	const comment = {
 		text,
 		adId: state.view.data.adId,
 		userId: state.userAuth.userId!,
 		dateTime: new Date().toLocaleString(),
-	});
+	};
+	const result = await commentOnCall(comment);
 	dispatch(pushComment(result));
 	dispatch(setCommenting(false));
 };
