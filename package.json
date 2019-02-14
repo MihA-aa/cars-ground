@@ -140,7 +140,7 @@
 			"react-app"
 		]
 	},
-	"homepage": "https://MihA-aa.github.io/cars-ground",
+	"homepage": "https://MihA-aa.github.io",
 	"devDependencies": {
 		"redux-devtools-extension": "^2.13.7"
 	}
