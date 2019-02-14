@@ -25,22 +25,24 @@ export class Comments extends React.Component<CommentsProps> {
 
 	render() {
 		const { value } = this.state;
-		const { comments, submitting, avatar } = this.props;
+		const { comments, submitting, avatar, isAuth } = this.props;
 
 		return (
 			<>
 				{comments.length > 0 && <CommentList comments={comments} />}
-				<Comment
-					avatar={<Avatar src={avatar} />}
-					content={
-						<Editor
-							onChange={this.handleChange}
-							onSubmit={this.handleSubmit}
-							submitting={submitting}
-							value={value}
-						/>
-					}
-				/>
+				{isAuth && (
+					<Comment
+						avatar={<Avatar src={avatar} />}
+						content={
+							<Editor
+								onChange={this.handleChange}
+								onSubmit={this.handleSubmit}
+								submitting={submitting}
+								value={value}
+							/>
+						}
+					/>
+				)}
 			</>
 		);
 	}

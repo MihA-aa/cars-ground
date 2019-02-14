@@ -9,7 +9,7 @@ import { routePaths } from '../../../helpers/route-paths';
 
 const mapStateToProps = (store: ImmutableStore): HeaderStateProps => ({
 	isAuthenticated: !!store.getIn(['userAuth', 'userId']),
-	isAdmin: !store.getIn(['userAuth', 'isAdmin']),
+	isAdmin: store.getIn(['userAuth', 'isAdmin']),
 	userName: `${store.getIn(['userAuth', 'firstName'])} ${store.getIn(['userAuth', 'secondName'])}`,
 });
 

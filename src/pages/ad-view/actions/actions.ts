@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { SubmissionError } from 'redux-form';
+import { SubmissionError } from 'redux-form/immutable';
 
 import { ViewDispatch } from './../interfaces';
 import {

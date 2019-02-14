@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'antd';
-import { Field } from 'redux-form';
+import { Field } from 'redux-form/immutable';
 import { Link } from 'react-router-dom';
 
 import { Input, Checkbox } from '../../helpers/fields';

@@ -1,5 +1,6 @@
 import { message } from 'antd';
-import { change, SubmissionError, reset, initialize } from 'redux-form';
+import { SubmissionError } from 'redux-form/immutable';
+import { change, reset, initialize } from 'redux-form';
 
 import { AdFormValues } from './../interfaces';
 import { fields, formName } from './../form-settings';
@@ -12,11 +13,13 @@ import {
 	getModelsRequest,
 	modelsFetched,
 	carLoaded,
+	resetInitialValues,
 } from './action-creators';
 import { contentLoading, contentLoaded } from '../../page/action-creators';
+import { emptyAd } from '../../../fake-server/fake-data';
 
 export const loadBrands = () => async (dispatch: AdDispatch) => {
-	dispatch(reset('ad'));
+	dispatch(reset(formName));
 	dispatch(getBrandsRequest());
 	const result = await getBrands();
 	dispatch(brandsFetched(result));
@@ -59,4 +62,10 @@ export const submit = async (values: AdFormValues, successCallback: () => void) 
 		message.success('Ad was successfully added');
 		successCallback();
 	}
+};
+
+export const formReset = () => (dispatch: AdDispatch) => {
+	dispatch(resetInitialValues());
+	dispatch(reset(formName));
+	dispatch(initialize(formName, emptyAd));
 };

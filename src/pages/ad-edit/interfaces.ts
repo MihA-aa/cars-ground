@@ -1,7 +1,7 @@
-import { StrictImmutableList, StrictImmutable } from './../../helpers/strict-immutable';
 import { InjectedFormProps } from 'redux-form';
 import { RouteComponentProps } from 'react-router-dom';
 
+import { StrictImmutableList, StrictImmutable } from './../../helpers/strict-immutable';
 import { SelectOption } from './../../data-interfaces/interfaces/select-option';
 import { CarBrand, BodyType, CarModel, Condition } from './../../data-interfaces/enums';
 import { AdAction } from './actions/action-creators';

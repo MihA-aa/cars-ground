@@ -2,6 +2,7 @@ export interface CommentsProps {
 	avatar: string;
 	comments: CommentData[];
 	submitting: boolean;
+	isAuth: boolean;
 	submit: (value: string) => void;
 }
 

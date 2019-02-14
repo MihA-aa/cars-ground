@@ -1,4 +1,4 @@
-import { SubmissionError } from 'redux-form';
+import { SubmissionError } from 'redux-form/immutable';
 import { message } from 'antd';
 import Cookies from 'js-cookie';
 

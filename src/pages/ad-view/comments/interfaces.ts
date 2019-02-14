@@ -6,6 +6,7 @@ export interface CommentsStateToProps {
 	avatar: string;
 	comments: CommentData[];
 	submitting: boolean;
+	isAuth: boolean;
 }
 
 export interface CommentsDispatchToProps {

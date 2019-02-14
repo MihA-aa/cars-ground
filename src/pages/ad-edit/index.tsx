@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { AdForm as AdFormComponent } from './form';
 import { ImmutableStore } from '../../store/root-reducer';
-import { loadBrands, loadCar, changeBrand, submit } from './actions/actions';
+import { loadBrands, loadCar, changeBrand, submit, formReset } from './actions/actions';
 import {
 	AdFormStateToProps,
 	AdFormValues,
@@ -15,7 +15,6 @@ import {
 import { withRouter } from 'react-router';
 import { formName } from './form-settings';
 import { routePaths } from '../../helpers/route-paths';
-import { resetInitialValues } from './actions/action-creators';
 import { StrictImmutable } from '../../helpers/strict-immutable';
 
 const mapStateToProps = (state: ImmutableStore): AdFormStateToProps => ({
@@ -31,7 +30,7 @@ const mapDispatchToProps = (dispatch: AdDispatch, props: RouteProps): AdFormDisp
 	const adId = Number(props.match.params.id);
 	const notFoundRedirect = () => props.history.push(routePaths.notFound);
 	return {
-		resetForm: () => dispatch(resetInitialValues()),
+		resetForm: () => dispatch(formReset()),
 		loadBrands: async () => dispatch(await loadBrands()),
 		changeBrand: async (brand) => dispatch(await changeBrand(brand)),
 		loadCar: async () => dispatch(await loadCar(adId, notFoundRedirect)),

@@ -12,6 +12,7 @@ const mapStateToProps = (state: ImmutableStore): CommentsStateToProps => ({
 	avatar: defaultAvatar,
 	comments: getComments(state),
 	submitting: state.getIn(['view', 'commenting']),
+	isAuth: !!state.getIn(['userAuth', 'userId']),
 });
 
 const mapDispatchToProps = (dispatch: ViewDispatch): CommentsDispatchToProps => {
