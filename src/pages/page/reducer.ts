@@ -1,5 +1,6 @@
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 
+import { StrictImmutable } from './../../helpers/strict-immutable';
 import { PageAction } from './action-creators';
 import { PageActionTypes } from './action-types';
 
@@ -8,15 +9,15 @@ export interface PageState {
 	contentIsLoading: boolean;
 }
 
-const initialState = {
+const initialState: PageState = {
 	pageIsLoading: true,
 	contentIsLoading: false,
 };
 
 export const pageReducer = (
-	state = Map(initialState),
+	state: StrictImmutable<PageState> = fromJS(initialState),
 	action: PageAction,
-): Map<string, boolean> => {
+): StrictImmutable<PageState> => {
 	switch (action.type) {
 		case PageActionTypes.PAGE_LOADING:
 			return state.set('pageIsLoading', true);

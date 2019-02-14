@@ -1,4 +1,4 @@
-import { reduxForm, InjectedFormProps } from 'redux-form';
+import { InjectedFormProps, reduxForm } from 'redux-form';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { LoginForm } from './form';

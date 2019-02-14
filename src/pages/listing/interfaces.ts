@@ -1,9 +1,10 @@
 import { BaseDispatch } from './../../helpers/base-dispatch';
 import { ListingAction } from './actions/action-creators';
 import { Ad } from '../../data-interfaces/interfaces/ad';
+import { StrictImmutableList } from '../../helpers/strict-immutable';
 
 export interface ListingState {
-	items: Ad[];
+	items: StrictImmutableList<Ad>;
 	isLoaded: boolean;
 	total: number;
 }
@@ -13,7 +14,7 @@ export type ListingDispatch = BaseDispatch<ListingAction>;
 export type ListingProps = ListingStateToProps & ListingDispatchToProps;
 
 export interface ListingStateToProps {
-	items: Ad[];
+	items: StrictImmutableList<Ad>;
 	isLoaded: boolean;
 	total: number;
 }

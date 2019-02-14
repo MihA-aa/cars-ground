@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
 
 import { Header as HeaderComponent } from './component';
-import { StoreState } from '../../../store/root-reducer';
+import { ImmutableStore } from '../../../store/root-reducer';
 import { logout, AuthDispatch } from '../../../auth/actions';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { HeaderStateProps, HeaderDispatchProps } from './interfaces';
 import { routePaths } from '../../../helpers/route-paths';
 
-const mapStateToProps = ({ userAuth }: StoreState): HeaderStateProps => ({
-	isAuthenticated: !!userAuth.userId,
-	isAdmin: userAuth.isAdmin,
-	userName: `${userAuth.firstName} ${userAuth.secondName}`,
+const mapStateToProps = (store: ImmutableStore): HeaderStateProps => ({
+	isAuthenticated: !!store.getIn(['userAuth', 'userId']),
+	isAdmin: !store.getIn(['userAuth', 'isAdmin']),
+	userName: `${store.getIn(['userAuth', 'firstName'])} ${store.getIn(['userAuth', 'secondName'])}`,
 });
 
 const mapDispatchToProps = (
@@ -27,7 +27,7 @@ export const ConnectedHeader = connect<
 	HeaderStateProps,
 	HeaderDispatchProps,
 	RouteComponentProps,
-	StoreState
+	ImmutableStore
 >(
 	mapStateToProps,
 	mapDispatchToProps,

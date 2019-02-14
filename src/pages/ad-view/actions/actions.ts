@@ -1,3 +1,6 @@
+import { message } from 'antd';
+import { SubmissionError } from 'redux-form';
+
 import { ViewDispatch } from './../interfaces';
 import {
 	getAd,
@@ -7,9 +10,9 @@ import {
 } from '../../../fake-server/fake-server';
 import { adFetched, setIsOwner, setRemoving, setCommenting, pushComment } from './action-creators';
 import { contentLoading, contentLoaded } from '../../page/action-creators';
-import { message } from 'antd';
-import { SubmissionError } from 'redux-form';
-import { StoreState } from '../../../store/root-reducer';
+import { ImmutableStore } from '../../../store/root-reducer';
+import { StrictImmutable } from '../../../helpers/strict-immutable';
+import { Ad } from '../../../data-interfaces/interfaces/ad';
 
 export const loadAd = (adId: number, notFoundCallback: () => void) => async (
 	dispatch: ViewDispatch,
@@ -44,14 +47,14 @@ export const remove = (carId: number, successCallback: () => void) => async (
 
 export const commentOn = (text: string) => async (
 	dispatch: ViewDispatch,
-	getState: () => StoreState,
+	getState: () => ImmutableStore,
 ) => {
 	dispatch(setCommenting(true));
 	const state = getState();
 	const comment = {
 		text,
-		adId: state.getIn(['view', 'data', 'adId']),
-		userId: state.userAuth.userId!,
+		adId: ((state.getIn(['view', 'data']) as unknown) as StrictImmutable<Ad>).get('adId'),
+		userId: state.getIn(['userAuth', 'userId'])!,
 		dateTime: new Date().toLocaleString(),
 	};
 	const result = await commentOnCall(comment);

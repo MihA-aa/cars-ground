@@ -1,3 +1,4 @@
+import { StrictImmutableList, StrictImmutable } from './../../helpers/strict-immutable';
 import { InjectedFormProps } from 'redux-form';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -7,12 +8,12 @@ import { AdAction } from './actions/action-creators';
 import { BaseDispatch } from '../../helpers/base-dispatch';
 
 export interface AdState {
-	brandOptions: SelectOption[];
-	modelOptions: SelectOption[];
+	brandOptions: StrictImmutableList<SelectOption>;
+	modelOptions: StrictImmutableList<SelectOption>;
 	brandsLoading: boolean;
 	modelsLoading: boolean;
 	modelDisabled: boolean;
-	initialValues: AdFormValues | null;
+	initialValues: StrictImmutable<AdFormValues>;
 }
 
 export interface AdFormValues {
@@ -36,15 +37,16 @@ interface RouteParams {
 
 export type RouteProps = RouteComponentProps<RouteParams>;
 
-export type AdFormProps = PropsFromConnect & InjectedFormProps<AdFormValues, PropsFromConnect>;
+export type AdFormProps = PropsFromConnect &
+	InjectedFormProps<StrictImmutable<AdFormValues>, PropsFromConnect>;
 
 export interface AdFormStateToProps {
-	brandOptions: SelectOption[];
-	modelOptions: SelectOption[];
+	brandOptions: StrictImmutableList<SelectOption>;
+	modelOptions: StrictImmutableList<SelectOption>;
 	brandsLoading: boolean;
 	modelsLoading: boolean;
 	modelDisabled: boolean;
-	initialValues: AdFormValues;
+	initialValues: StrictImmutable<AdFormValues>;
 }
 
 export interface AdFormDispatchToProps {

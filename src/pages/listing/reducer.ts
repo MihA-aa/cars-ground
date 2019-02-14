@@ -1,27 +1,30 @@
+import { fromJS } from 'immutable';
+
 import { ListingState } from './interfaces';
 import { ListingAction } from './actions/action-creators';
 import { ListingActionTypes } from './actions/action-types';
 import { defaultListing } from '../../fake-server/fake-data';
+import { StrictImmutable } from '../../helpers/strict-immutable';
 
 const initialState: ListingState = {
-	items: defaultListing,
+	items: fromJS(defaultListing),
 	isLoaded: false,
 	total: 1,
 };
 
 export const listingReducer = (
-	state: ListingState = initialState,
+	state: StrictImmutable<ListingState> = fromJS(initialState),
 	action: ListingAction,
-): ListingState => {
+): StrictImmutable<ListingState> => {
 	switch (action.type) {
 		case ListingActionTypes.ADS_FETCHED:
-			return { ...state, items: action.payload.items, isLoaded: true };
+			return state.set('items', fromJS(action.payload.items)).set('isLoaded', true);
 
 		case ListingActionTypes.RESET:
-			return { ...state, items: defaultListing };
+			return state.set('items', fromJS(defaultListing));
 
 		case ListingActionTypes.SET_TOTAL:
-			return { ...state, total: action.payload.total };
+			return state.set('total', action.payload.total);
 
 		default:
 			return state;

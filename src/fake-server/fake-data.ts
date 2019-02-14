@@ -184,24 +184,39 @@ export const ads: Ad[] = [
 	},
 ];
 
+export const emptyCar: Car = {
+	carId: 0,
+	carBrand: 0,
+	model: 0,
+	yearOfIssue: 0,
+	bodyType: 0,
+	modification: '',
+	condition: 0,
+	price: 0,
+	notes: '',
+	photo: '',
+};
+
+export const testCar: Car = {
+	carId: 1,
+	carBrand: 2,
+	model: 1,
+	yearOfIssue: 1990,
+	bodyType: 0,
+	modification: '',
+	condition: 0,
+	price: 0,
+	notes: '',
+	photo: '',
+};
+
 export const emptyAd: Ad = {
 	adId: 0,
 	user: {
 		userId: 0,
 		avatar: defaultAvatar,
 	},
-	car: {
-		carId: 0,
-		carBrand: 0,
-		model: 0,
-		yearOfIssue: 0,
-		bodyType: 0,
-		modification: '',
-		condition: 0,
-		price: 0,
-		notes: '',
-		photo: '',
-	},
+	car: emptyCar,
 	meta: {
 		avatar: 'isLoading',
 		stars: 0,

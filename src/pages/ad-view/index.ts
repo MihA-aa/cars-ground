@@ -2,14 +2,15 @@ import { connect } from 'react-redux';
 
 import { AdView as AdViewComponent } from './component';
 import { AdViewStateToProps, AdViewDispatchToProps, ViewDispatch, RootProps } from './interfaces';
-import { StoreState } from '../../store/root-reducer';
+import { ImmutableStore } from '../../store/root-reducer';
 import { loadAd } from './actions/actions';
 import { withRouter } from 'react-router-dom';
 import { routePaths } from '../../helpers/route-paths';
+import { getAd } from './selectors';
 
-const mapStateToProps = ({ view }: StoreState): AdViewStateToProps => ({
-	data: view.get('data').toJS(),
-	isOwner: view.get('isOwner'),
+const mapStateToProps = (state: ImmutableStore): AdViewStateToProps => ({
+	data: getAd(state),
+	isOwner: state.getIn(['view', 'isOwner']),
 });
 
 const mapDispatchToProps = (dispatch: ViewDispatch, props: RootProps): AdViewDispatchToProps => {
@@ -20,7 +21,7 @@ const mapDispatchToProps = (dispatch: ViewDispatch, props: RootProps): AdViewDis
 	};
 };
 
-const AdView = connect<AdViewStateToProps, AdViewDispatchToProps, RootProps, StoreState>(
+const AdView = connect<AdViewStateToProps, AdViewDispatchToProps, RootProps, ImmutableStore>(
 	mapStateToProps,
 	mapDispatchToProps,
 )(AdViewComponent);

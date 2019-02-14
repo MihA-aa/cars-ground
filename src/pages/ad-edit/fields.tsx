@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field } from 'redux-form';
+import { Field } from 'redux-form/immutable';
 
 import { Select, RadioGroup } from '../../helpers/fields';
 import { required } from '../../helpers/validation-rules';

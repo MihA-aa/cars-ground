@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { change, SubmissionError, reset } from 'redux-form';
+import { change, SubmissionError, reset, initialize } from 'redux-form';
 
 import { AdFormValues } from './../interfaces';
 import { fields, formName } from './../form-settings';
@@ -41,6 +41,7 @@ export const loadCar = (carId: number, notFoundCallback: () => void) => async (
 	const result = await getCar(carId);
 	if (result) {
 		dispatch(carLoaded(result));
+		dispatch(initialize(formName, result));
 		await dispatch(loadBrands());
 		await dispatch(loadModels(result.carBrand));
 	} else {

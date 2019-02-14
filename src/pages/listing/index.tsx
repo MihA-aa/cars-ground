@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 
 import { Listing as ListingComponent } from './component';
 import { ListingStateToProps, ListingDispatch, ListingDispatchToProps } from './interfaces';
-import { StoreState } from '../../store/root-reducer';
+import { ImmutableStore } from '../../store/root-reducer';
 import { loadAds, loadTotal } from './actions/actions';
 import { reset } from './actions/action-creators';
 
-const mapStateToProps = ({ listing }: StoreState): ListingStateToProps => ({
-	items: listing.items,
-	isLoaded: listing.isLoaded,
-	total: listing.total,
+const mapStateToProps = (store: ImmutableStore): ListingStateToProps => ({
+	items: store.getIn(['listing', 'items']),
+	isLoaded: store.getIn(['listing', 'isLoaded']),
+	total: store.getIn(['listing', 'total']),
 });
 
 const mapDispatchToProps = (dispatch: ListingDispatch): ListingDispatchToProps => ({
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: ListingDispatch): ListingDispatchToProps =
 	loadTotal: () => dispatch(loadTotal()),
 });
 
-export const Listing = connect<ListingStateToProps, ListingDispatchToProps, null, StoreState>(
+export const Listing = connect<ListingStateToProps, ListingDispatchToProps, null, ImmutableStore>(
 	mapStateToProps,
 	mapDispatchToProps,
 )(ListingComponent);

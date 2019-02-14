@@ -2,14 +2,14 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { routePaths } from '../../../helpers/route-paths';
-import { StoreState } from '../../../store/root-reducer';
+import { ImmutableStore } from '../../../store/root-reducer';
 import { ViewDispatch } from '../interfaces';
 import { remove } from '../actions/actions';
 import { Buttons as ButtonsComponent } from './component';
 import { ButtonsStateToProps, ButtonsOwnProps, ButtonsDispatchToProps } from './interfaces';
 
-const mapStateToProps = ({ view }: StoreState): ButtonsStateToProps => ({
-	removing: view.get('removing'),
+const mapStateToProps = (state: ImmutableStore): ButtonsStateToProps => ({
+	removing: state.getIn(['view', 'removing']),
 });
 
 const mapDispatchToProps = (
@@ -27,7 +27,7 @@ const ConnectedButtons = connect<
 	ButtonsStateToProps,
 	ButtonsDispatchToProps,
 	ButtonsOwnProps,
-	StoreState
+	ImmutableStore
 >(
 	mapStateToProps,
 	mapDispatchToProps,

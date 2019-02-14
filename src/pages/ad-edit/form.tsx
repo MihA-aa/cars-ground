@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button } from 'antd';
-import { Field } from 'redux-form';
+import { Field } from 'redux-form/immutable';
 
 import { required, onlyNumber } from '../../helpers/validation-rules';
 import { Input, TextArea } from '../../helpers/fields';
@@ -11,7 +11,7 @@ import { options, formItemLayout, tailFormItemLayout, fields } from './form-sett
 import { routePaths } from '../../helpers/route-paths';
 
 export class AdForm extends React.Component<AdFormProps> {
-	componentDidMount() {
+	async componentDidMount() {
 		if (this.props.match.path === routePaths.adEdit()) {
 			this.props.loadCar();
 		} else {
@@ -43,7 +43,7 @@ export class AdForm extends React.Component<AdFormProps> {
 				<AdFormSelectField
 					label={fields.carBrandLabel}
 					name={fields.carBrand}
-					options={brandOptions}
+					options={brandOptions.toJS()}
 					loading={brandsLoading}
 					disabled={brandsLoading}
 					onChangeCallback={changeBrand}
@@ -51,7 +51,7 @@ export class AdForm extends React.Component<AdFormProps> {
 				<AdFormSelectField
 					label={fields.modelLabel}
 					name={fields.model}
-					options={modelOptions}
+					options={modelOptions.toJS()}
 					loading={modelsLoading}
 					disabled={modelDisabled}
 				/>
