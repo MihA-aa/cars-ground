@@ -8,6 +8,10 @@ import { MetaData } from '../data-interfaces/interfaces/meta-data';
 export const carToModel = new Map<CarBrand, CarModel[]>([
 	[CarBrand.BMW, [CarModel.M5, CarModel.M6, CarModel.X5, CarModel.X6]],
 	[CarBrand.Ford, [CarModel.Focus, CarModel.Mustang, CarModel.Galaxy]],
+	[CarBrand.Mercedes, [CarModel.AMG, CarModel.GLA, CarModel.GLC]],
+	[CarBrand.Nissan, [CarModel.Sunny, CarModel.Patrol, CarModel.Frontier]],
+	[CarBrand.Volkswagen, [CarModel.Golf, CarModel.Passat, CarModel.Polo]],
+	[CarBrand.Moskvitch, [CarModel.Svyatogor, CarModel.Vladimir, CarModel.FourHundred]],
 ]);
 
 export const defaultPhoto = 'https://kor.ill.in.ua/m/610x385/2081558.jpg';
@@ -31,7 +35,7 @@ export const cars: Car[] = [
 		condition: Condition.Used,
 		price: 5000,
 		notes: 'Just notes.',
-		photo: defaultPhoto,
+		photo: 'http://atlanticexpress.com.ua/wp-content/uploads/2018/12/BMWX5201006.jpg',
 	},
 	{
 		carId: 2,
@@ -43,7 +47,7 @@ export const cars: Car[] = [
 		condition: Condition.Used,
 		price: 13000,
 		notes: 'The best car.',
-		photo: defaultPhoto,
+		photo: 'https://cdn04.carsforsale.com/3/1010842/23323318/thumb/1128455897.jpg',
 	},
 	{
 		carId: 3,
@@ -55,7 +59,8 @@ export const cars: Car[] = [
 		condition: Condition.Damaged,
 		price: 7000,
 		notes: 'Top car in your life.',
-		photo: defaultPhoto,
+		photo:
+			'https://upload.wikimedia.org/wikipedia/commons/e/e8/2005_Ford_Focus_%28LS%29_CL_sedan_%282016-01-04%29_01.jpg',
 	},
 	{
 		carId: 4,
@@ -67,7 +72,7 @@ export const cars: Car[] = [
 		condition: Condition.ForParts,
 		price: 4000,
 		notes: 'Top',
-		photo: defaultPhoto,
+		photo: 'https://i.ebayimg.com/00/s/NTc2WDEwMjQ=/z/25QAAOSwMfhahtIM/$_86.JPG',
 	},
 ];
 

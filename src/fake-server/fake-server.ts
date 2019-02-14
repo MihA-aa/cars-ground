@@ -115,3 +115,8 @@ export const commentOn = async (commentModel: CommentModel): Promise<ApiResponse
 	ads.pushComment(comment);
 	return comment;
 };
+
+export const view = async (adId: number): Promise<void> => {
+	await sleep(10);
+	ads.viewAdId(adId);
+};

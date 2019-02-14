@@ -7,6 +7,7 @@ import {
 	isOwner,
 	removeCar,
 	commentOn as commentOnCall,
+	view,
 } from '../../../fake-server/fake-server';
 import { adFetched, setIsOwner, setRemoving, setCommenting, pushComment } from './action-creators';
 import { contentLoading, contentLoaded } from '../../page/action-creators';
@@ -21,6 +22,7 @@ export const loadAd = (adId: number, notFoundCallback: () => void) => async (
 	dispatch(contentLoading());
 	const result = await getAd(adId);
 	if (result) {
+		await view(adId);
 		const isOwnerResult = await isOwner(adId);
 		dispatch(setIsOwner(isOwnerResult));
 		dispatch(adFetched(result));

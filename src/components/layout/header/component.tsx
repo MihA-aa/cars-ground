@@ -15,9 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ isAuthenticated, userName, logou
 			<h3>
 				{isAuthenticated ? (
 					<>
-						<Styled.RightMenuLink to={routePaths.adCreate}>
-							Post Ad
-						</Styled.RightMenuLink>
+						<Styled.RightMenuLink to={routePaths.ad.create}>Post Ad</Styled.RightMenuLink>
 						<Styled.RightMenuLink to={'#'}>
 							<Icon type='user' /> {userName}
 							{isAdmin && ' (Admin)'}

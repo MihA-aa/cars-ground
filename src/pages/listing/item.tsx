@@ -22,7 +22,7 @@ export const Item: React.FC<StrictImmutable<Ad>> = (props) => {
 				<List.Item.Meta
 					avatar={<Avatar src={meta.avatar} />}
 					title={
-						<Link to={routePaths.adView(adId.toString())}>
+						<Link to={routePaths.ad.view(adId.toString())}>
 							{CarBrand[car.carBrand]} {CarModel[car.model]}, {car.yearOfIssue}
 						</Link>
 					}

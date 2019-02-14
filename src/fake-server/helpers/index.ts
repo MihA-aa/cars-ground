@@ -6,6 +6,7 @@ import {
 	updateAdCar,
 	mapCommentModelToComment,
 	pushComment,
+	viewAdId,
 } from './ad-helpers';
 import { getLocalCars, insertCars, insertCar, updateCar, generateCarId } from './car-helpers';
 import { getUsers, mapUserToUserData, getUser, getUserId, getUserById } from './user-helpers';
@@ -25,6 +26,7 @@ export const ads = {
 	updateAdCar,
 	generateAdId,
 	pushComment,
+	viewAdId,
 	mapCommentModelToComment,
 };
 

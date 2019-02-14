@@ -29,9 +29,9 @@ export class App extends React.Component<AppProps> {
 				<Layout>
 					<Switch>
 						<Route exact path={routePaths.home} component={Listing} />
-						<Route path={routePaths.adCreate} component={withAuthorization(AdEditPage)} />
-						<Route path={routePaths.adEdit()} component={withAuthorization(AdEditPage)} />
-						<Route path={routePaths.adView()} component={AdViewPage} />
+						<Route path={routePaths.ad.create} component={withAuthorization(AdEditPage)} />
+						<Route path={routePaths.ad.edit()} component={withAuthorization(AdEditPage)} />
+						<Route path={routePaths.ad.view()} component={AdViewPage} />
 						<Route component={NotFound} />
 					</Switch>
 				</Layout>

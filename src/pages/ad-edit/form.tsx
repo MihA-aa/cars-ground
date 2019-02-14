@@ -12,7 +12,7 @@ import { routePaths } from '../../helpers/route-paths';
 
 export class AdForm extends React.Component<AdFormProps> {
 	async componentDidMount() {
-		if (this.props.match.path === routePaths.adEdit()) {
+		if (this.props.match.path === routePaths.ad.edit()) {
 			this.props.loadCar();
 		} else {
 			this.props.loadBrands();

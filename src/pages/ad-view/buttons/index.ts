@@ -18,7 +18,7 @@ const mapDispatchToProps = (
 ): ButtonsDispatchToProps => {
 	const successRedirect = () => props.history.push(routePaths.home);
 	return {
-		edit: () => props.history.push(routePaths.adEdit(`${props.carId}`)),
+		edit: () => props.history.push(routePaths.ad.edit(`${props.carId}`)),
 		remove: async () => dispatch(await remove(props.carId, successRedirect)),
 	};
 };

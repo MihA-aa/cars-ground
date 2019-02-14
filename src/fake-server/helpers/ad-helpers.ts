@@ -31,6 +31,14 @@ export const generateAdId = (): number => {
 	return Math.max.apply(Math, ads.map((c) => c.adId)) + 1;
 };
 
+export const viewAdId = (adId: number) => {
+	const ads = getLocalAds();
+	const newAds = ads.map((ad) =>
+		ad.adId === adId ? { ...ad, meta: { ...ad.meta, views: ad.meta.views + 1 } } : ad,
+	);
+	insertAds(newAds);
+};
+
 export const pushComment = (comment: Comment): void => {
 	const ads = getLocalAds();
 	const newAds = ads.map((ad) =>
